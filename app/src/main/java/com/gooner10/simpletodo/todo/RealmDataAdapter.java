@@ -33,7 +33,7 @@ public class RealmDataAdapter extends RealmRecyclerViewAdapter<ToDoModel,RealmDa
 
     @Override
     public RealmDataAdapter.ItemHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View itemView = layoutInflater.inflate(R.layout.single_row_recycler_adapter, parent, false);
+        View itemView = layoutInflater.inflate(R.layout.single_row_todo_adapter, parent, false);
         return new ItemHolder(itemView, this);
     }
 

@@ -2,6 +2,7 @@ package com.gooner10.simpletodo.todo;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,14 +18,13 @@ import java.util.List;
  * RecyclerView Adapter for the SimpleTodo RecyclerView
  */
 
-public class ToDoAdapter extends RecyclerView.Adapter<ToDoAdapter.ItemHolder> {
-
+public class ToDoItemsAdapter extends RecyclerView.Adapter<ToDoItemsAdapter.ItemHolder> {
 
     private List<ToDoModel> itemsName;
     private OnItemClickListener onItemClickListener;
     private LayoutInflater layoutInflater;
 
-    public ToDoAdapter(Context context) {
+    public ToDoItemsAdapter(Context context) {
         layoutInflater = LayoutInflater.from(context);
         itemsName = new ArrayList<>();
     }
@@ -36,14 +36,16 @@ public class ToDoAdapter extends RecyclerView.Adapter<ToDoAdapter.ItemHolder> {
 
     @Override
     public ItemHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View itemView = layoutInflater.inflate(R.layout.single_row_recycler_adapter, parent, false);
+        View itemView = layoutInflater.inflate(R.layout.single_row_todo_adapter, parent, false);
         return new ItemHolder(itemView, this);
     }
 
 
     @Override
     public void onBindViewHolder(ItemHolder holder, int position) {
+        Log.d("onBindViewHolder", ": "+itemsName.get(position).getToDoName());
         holder.setItemName(itemsName.get(position).getToDoName());
+        Log.d("onBindViewHolder", "textItemName: "+holder.textItemName.getText());
     }
 
     @Override
@@ -63,35 +65,16 @@ public class ToDoAdapter extends RecyclerView.Adapter<ToDoAdapter.ItemHolder> {
         void onItemClick(ItemHolder item, int position);
     }
 
-//    public void add(int location, String iName){
-//        itemsName.add(location, iName);
-//        notifyItemInserted(location);
-//    }
-
-    public void add(String iName) {
-
-//        itemsName.add(iName);
-        notifyDataSetChanged();
-    }
-
-    public void remove(int location) {
-        if (location >= itemsName.size())
-            return;
-
-        itemsName.get(location).deleteFromRealm();
-        notifyItemRemoved(location);
-    }
-
     public ToDoModel getItem(int position) {
         return itemsName.get(position);
     }
 
-    public static class ItemHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
+    public static class ItemHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
-        private ToDoAdapter parent;
+        private ToDoItemsAdapter parent;
         TextView textItemName;
 
-        public ItemHolder(View itemView, ToDoAdapter parent) {
+        public ItemHolder(View itemView, ToDoItemsAdapter parent) {
             super(itemView);
             itemView.setOnClickListener(this);
             this.parent = parent;
@@ -102,10 +85,6 @@ public class ToDoAdapter extends RecyclerView.Adapter<ToDoAdapter.ItemHolder> {
             textItemName.setText(name);
         }
 
-        public CharSequence getItemName() {
-            return textItemName.getText();
-        }
-
         @Override
         public void onClick(View v) {
             final OnItemClickListener listener = parent.getOnItemClickListener();
@@ -113,10 +92,27 @@ public class ToDoAdapter extends RecyclerView.Adapter<ToDoAdapter.ItemHolder> {
                 listener.onItemClick(this, getAdapterPosition());
             }
         }
-
-        @Override
-        public boolean onLongClick(View v) {
-            return false;
-        }
     }
+
+    //        public CharSequence getItemName() {
+//            return textItemName.getText();
+//        }
+    //    public void add(int location, String iName){
+//        itemsName.add(location, iName);
+//        notifyItemInserted(location);
+//    }
+
+//    public void add(String iName) {
+//
+////        itemsName.add(iName);
+//        notifyDataSetChanged();
+//    }
+//
+//    public void remove(int location) {
+//        if (location >= itemsName.size())
+//            return;
+//
+//        itemsName.get(location).deleteFromRealm();
+//        notifyItemRemoved(location);
+//    }
 }

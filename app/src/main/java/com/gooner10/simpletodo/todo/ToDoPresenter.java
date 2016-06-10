@@ -1,5 +1,7 @@
 package com.gooner10.simpletodo.todo;
 
+import android.util.Log;
+
 import com.gooner10.simpletodo.model.ToDoModel;
 
 import java.util.UUID;
@@ -14,8 +16,6 @@ import io.realm.RealmResults;
 public class ToDoPresenter implements ToDoContract.UserActionsListener {
     //        private final ToDoRepository mToDoRepository;
     private final ToDoContract.View mToDoView;
-    //    private List<ToDoModel> mToDoList;
-    private RealmResults mToDoList;
     Realm realm;
 
     public ToDoPresenter(ToDoContract.View mToDoView) {
@@ -29,12 +29,7 @@ public class ToDoPresenter implements ToDoContract.UserActionsListener {
         // Get result from Realm Query
         RealmResults<ToDoModel> mToDoList =
                 realm.where(ToDoModel.class).findAll();
-//        List<String> toDoItems = new ArrayList<>();
-//        if (!mToDoList.isEmpty()) {
-//            for (ToDoModel toDoModel : mToDoList) {
-//                toDoItems.add(toDoModel.getToDoName());
-//            }
-//        }
+        Log.d("ToDoActivity","updateChanges loadToDo");
         mToDoView.showToDoUi(mToDoList);
     }
 

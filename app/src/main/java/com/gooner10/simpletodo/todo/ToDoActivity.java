@@ -1,11 +1,14 @@
 package com.gooner10.simpletodo.todo;
 
+import android.animation.Animator;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.databinding.DataBindingUtil;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityOptionsCompat;
+import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -15,11 +18,15 @@ import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewAnimationUtils;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import com.gooner10.simpletodo.R;
+import com.gooner10.simpletodo.ToDoDialogFragment;
+import com.gooner10.simpletodo.databinding.ActivityMainBinding;
 import com.gooner10.simpletodo.edit.EditActivity;
 import com.gooner10.simpletodo.model.ToDoModel;
 
@@ -27,19 +34,22 @@ import java.util.List;
 
 import io.realm.Realm;
 
-public class ToDoActivity extends AppCompatActivity implements ToDoAdapter.OnItemClickListener,
+public class ToDoActivity extends AppCompatActivity implements ToDoItemsAdapter.OnItemClickListener,
         FloatingActionButton.OnClickListener,
         ToDoContract.View {
     public static final String LOG_TAG = ToDoActivity.class.getSimpleName();
-    private ToDoAdapter toDoAdapter;
+    private ToDoItemsAdapter toDoItemsAdapter;
     private Realm realm;
     private ToDoContract.UserActionsListener mActionsListener;
+    private FloatingActionButton fab;
+    private ActivityMainBinding mainBinding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        mainBinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
+//        setContentView(R.layout.activity_main);
+        Toolbar toolbar = mainBinding.toolbar;
         setSupportActionBar(toolbar);
 
         // Get Instance of Realm
@@ -49,12 +59,12 @@ public class ToDoActivity extends AppCompatActivity implements ToDoAdapter.OnIte
         mActionsListener = new ToDoPresenter(this);
 
         // Initialize RecycleView with adapter
-        RecyclerView mRecyclerView = (RecyclerView) findViewById(R.id.recyclerview);
-        toDoAdapter = new ToDoAdapter(this);
-        toDoAdapter.setOnItemClickListener(this);
+        RecyclerView mRecyclerView = mainBinding.layoutContentMain.recyclerview;
+        toDoItemsAdapter = new ToDoItemsAdapter(this);
+        toDoItemsAdapter.setOnItemClickListener(this);
 
         // Load the Ui with To Do List from ToDoPresenter
-        mActionsListener.loadToDo();
+//        mActionsListener.loadToDo();
 
         // Adding Swipe to delete on RecyclerView with ItemTouchHelper
         ItemTouchHelper.SimpleCallback simpleItemTouchCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
@@ -67,21 +77,21 @@ public class ToDoActivity extends AppCompatActivity implements ToDoAdapter.OnIte
             @Override
             public void onSwiped(RecyclerView.ViewHolder viewHolder, int swipeDir) {
                 //Remove swiped item from RealmDatabase and update the view
-                mActionsListener.deleteToDo(toDoAdapter.getItem(viewHolder.getAdapterPosition()));
+                mActionsListener.deleteToDo(toDoItemsAdapter.getItem(viewHolder.getAdapterPosition()));
                 mActionsListener.loadToDo();
             }
         };
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleItemTouchCallback);
         itemTouchHelper.attachToRecyclerView(mRecyclerView);
 
-        // Adding ToDoAdapter and Layout to the RecyclerView
+        // Adding ToDoItemsAdapter and Layout to the RecyclerView
         if (mRecyclerView != null) {
-            mRecyclerView.setAdapter(toDoAdapter);
+            mRecyclerView.setAdapter(toDoItemsAdapter);
             mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         }
 
         // Floating Action button onClickListener to Add new ToDoItem
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab = (FloatingActionButton) findViewById(R.id.fab);
         if (fab != null) {
             fab.setOnClickListener(this);
         }
@@ -91,7 +101,14 @@ public class ToDoActivity extends AppCompatActivity implements ToDoAdapter.OnIte
     protected void onResume() {
         super.onResume();
         Log.d(LOG_TAG, "onResume");
+//        toDoItemsAdapter.notifyDataSetChanged();
         mActionsListener.loadToDo();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Log.d(LOG_TAG, "onStop");
     }
 
     @Override
@@ -111,23 +128,35 @@ public class ToDoActivity extends AppCompatActivity implements ToDoAdapter.OnIte
         alertDialogBuilder.setView(dialogView);
         alertDialogBuilder.setTitle("Add a New Item");
         final EditText editText = (EditText) dialogView.findViewById(R.id.addToDoText);
-        // 3. Set up the input
-        // Specify the type of input expected;
 
-        // 4. Set up the buttons
-        alertDialogBuilder.setPositiveButton("Add", new DialogInterface.OnClickListener() {
+
+        // 4. Set up the button and Get the AlertDialog from create() and show
+        final AlertDialog alertDialog = alertDialogBuilder.setPositiveButton(R.string.add_btn, null).create();
+
+        alertDialog.setOnShowListener(new DialogInterface.OnShowListener() {
             @Override
-            public void onClick(DialogInterface dialog, int which) {
-                if (editText != null) {
-                    String m_Text = editText.getText().toString();
-                    mActionsListener.addNewToDo(m_Text);
-                }
+            public void onShow(DialogInterface dialog) {
+                Button b = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE);
+                b.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (editText != null) {
+                            String m_Text = editText.getText().toString();
+                            if (m_Text.length() == 0) {
+                                editText.setError("To Do Item is required!");
+                                Log.d(LOG_TAG, "Error");
+                            } else {
+                                mActionsListener.addNewToDo(m_Text);
+                                alertDialog.dismiss();
+                            }
+                        }
+                    }
+                });
             }
         });
-        // 5. Get the AlertDialog from create() and show
-        AlertDialog dialog = alertDialogBuilder.create();
-        dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
-        dialog.show();
+        alertDialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
+        alertDialog.show();
+
     }
 
 
@@ -135,7 +164,20 @@ public class ToDoActivity extends AppCompatActivity implements ToDoAdapter.OnIte
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.fab) {
-            addToDoFromDialog();
+            // Adding Circular Reveal to the fab button
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+                // get the center for the clipping circle
+                int cx = fab.getMeasuredWidth() / 2;
+                int cy = fab.getMeasuredHeight() / 2;
+
+                // get the final radius for the clipping circle
+                int finalRadius = Math.max(fab.getWidth(), fab.getHeight()) / 2;
+                Animator anim = ViewAnimationUtils.createCircularReveal(fab, cx, cy, 0, finalRadius);
+                anim.start();
+            }
+//            addToDoFromDialog();
+            DialogFragment newFragment = ToDoDialogFragment.newInstance(R.string.add_new_todo);
+            newFragment.show(getSupportFragmentManager(), "dialog");
         }
     }
 
@@ -147,25 +189,28 @@ public class ToDoActivity extends AppCompatActivity implements ToDoAdapter.OnIte
 
     @Override
     public void showToDoUi(List<ToDoModel> mToDoList) {
-        TextView textView = (TextView) findViewById(R.id.noTaskText);
-        if (mToDoList.isEmpty()) {
 
-            textView.setVisibility(View.VISIBLE);
-        } else {
-            toDoAdapter.setItems(mToDoList);
+        if (!mToDoList.isEmpty()) {
+            TextView textView = (TextView) findViewById(R.id.noTaskText);
             textView.setVisibility(View.GONE);
+            toDoItemsAdapter.setItems(mToDoList);
+        } else {
+            TextView textView = (TextView) findViewById(R.id.noTaskText);
+            textView.setVisibility(View.VISIBLE);
         }
+
     }
 
     @Override
     public void updateChanges() {
         mActionsListener.loadToDo();
+        Log.d(LOG_TAG, "updateChanges ToDo");
     }
 
     @Override
-    public void onItemClick(ToDoAdapter.ItemHolder item, int position) {
+    public void onItemClick(ToDoItemsAdapter.ItemHolder item, int position) {
         Intent intent = new Intent(this, EditActivity.class);
-        intent.putExtra("ItemName", toDoAdapter.getItem(position).getId());
+        intent.putExtra("ItemName", toDoItemsAdapter.getItem(position).getId());
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
             ActivityOptionsCompat options = ActivityOptionsCompat.
@@ -185,7 +230,7 @@ public class ToDoActivity extends AppCompatActivity implements ToDoAdapter.OnIte
 //            for (ToDoModel toDoModel : mToDoList) {
 //                items.add(toDoModel.getToDoName());
 //            }
-//            toDoAdapter.setItems(items);
+//            toDoItemsAdapter.setItems(items);
 //        }
 //        return items;
 //    }
@@ -211,7 +256,7 @@ public class ToDoActivity extends AppCompatActivity implements ToDoAdapter.OnIte
 //        if (requestCode == 1) {
 //            if (resultCode == Activity.RESULT_OK) {
 //                String result = data.getStringExtra("result");
-////                toDoAdapter.add(0, result);
+////                toDoItemsAdapter.add(0, result);
 ////                Toast.makeText(this, "result " + result, Toast.LENGTH_SHORT).show();
 //
 //            }
@@ -222,7 +267,7 @@ public class ToDoActivity extends AppCompatActivity implements ToDoAdapter.OnIte
 //    public void onFinishToDoDialog(String inputText) {
 //        Log.d("TAG", "inputText: " + inputText);
 ////        String m_Text = input.getText().toString();
-//        toDoAdapter.add(0, inputText);
+//        toDoItemsAdapter.add(0, inputText);
 //    }
 
     //    private void showEditDialog() {

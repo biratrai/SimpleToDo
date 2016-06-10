@@ -25,10 +25,8 @@ public class EditActivity extends AppCompatActivity implements Button.OnClickLis
 
         Bundle bundle = getIntent().getExtras();
         String itemName = (String) bundle.get("ItemName");
-        Log.d("EditActivity", "itemName: " + itemName);
         realm = Realm.getDefaultInstance();
         results = realm.where(ToDoModel.class).equalTo("id", itemName).findAll();
-        Log.d("EditActivity", "results: " + results.size());
         editText = (EditText) findViewById(R.id.editToDoText);
         if (editText != null) {
             editText.setText(results.get(0).getToDoName());
@@ -41,21 +39,22 @@ public class EditActivity extends AppCompatActivity implements Button.OnClickLis
     @Override
     protected void onPause() {
         super.onPause();
+//        supportFinishAfterTransition();
+//        this.finish();
+        Log.d("ToDoActivity", "onPause:--> ");
     }
 
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.editSaveBtn) {
-
-//            editText.getText();
             realm.executeTransaction(new Realm.Transaction() {
                 @Override
                 public void execute(Realm realm) {
                     ToDoModel toDoModel = results.get(0);
                     toDoModel.setToDoName(editText.getText().toString());
-//                    toDoModel.setToDoName(mNewToDo);
                     Log.d("EditActivity", "execute: " + results.get(0).getToDoName());
                     Log.d("EditActivity", "execute: " + editText.getText());
+                    Log.d("EditActivity", "execute: " + results.get(0).getId());
                 }
             });
 
@@ -65,7 +64,19 @@ public class EditActivity extends AppCompatActivity implements Button.OnClickLis
                 Log.d("EditActivity", "toDoModel: " + toDoModel.getToDoName());
 
             }
+            Log.d("ToDoActivity", "onClick: ");
+
             finish();
+//            supportFinishAfterTransition();
         }
+    }
+
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Log.d("ToDoActivity", "onStop:--> ");
+//        supportFinishAfterTransition();
+//        this.finish();
     }
 }

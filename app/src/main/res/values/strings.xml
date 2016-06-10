@@ -3,4 +3,8 @@
     <string name="action_settings">Settings</string>
     <string name="no_task_available">No To Do Task Available</string>
     <string name="to_do_work_hint">Enter the to do work</string>
+    <string name="checkbox_todo_complete">CheckBox ToDo Complete</string>
+    <string name="save_btn">Save</string>
+    <string name="add_new_todo">Add new ToDo</string>
+    <string name="add_btn">Add</string>
 </resources>
