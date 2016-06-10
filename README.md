@@ -39,11 +39,9 @@ GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
 ## Notes
 
-I may or may not add any more to this before the bootcamp starts tomorrow. :-)
-
 ## License
 
-    Copyright 2016 Tané Tachyon
+    Copyright 2016 Birat Rai
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
