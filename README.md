@@ -16,9 +16,8 @@ The following **required** functionality is completed:
 
 The following **optional** features are implemented:
 
-* [x] Persist the todo items [into SQLite](http://guides.codepath.com/android/Persisting-Data-to-the-Device#sqlite) instead of a text file
-* [x] Improve style of the todo items in the list [using a custom adapter](http://guides.codepath.com/android/Using-an-ArrayAdapter-with-ListView)
-* [x] Add support for completion due dates for todo items (and display within listview item)
+* [x] Persist the todo items [into Realm database](https://realm.io/docs/java/latest/).
+* [x] Used [recyclerView](https://guides.codepath.com/android/using-the-recyclerview) which uses ViewHolder pattern for efficient use of view objects.
 
 The following **additional** features are implemented:
 
