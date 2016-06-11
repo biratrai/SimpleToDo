@@ -26,7 +26,7 @@ public interface ToDoContract {
 
         void addNewToDo(String mNewToDo);
 
-//        void editToDo();
+//        void getRealmModel();
 
         void deleteToDo(ToDoModel toDoModel);
     }

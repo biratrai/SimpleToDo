@@ -15,18 +15,20 @@ import com.gooner10.simpletodo.R;
 import com.gooner10.simpletodo.ToDoApplication;
 import com.gooner10.simpletodo.databinding.ActivityEditBinding;
 import com.gooner10.simpletodo.model.ToDoModel;
+import com.gooner10.simpletodo.model.ToDoRepository;
 
 import javax.inject.Inject;
-
-import io.realm.Realm;
 
 public class EditActivity extends AppCompatActivity implements Button.OnClickListener {
     private static final String ITEM_NAME = "itemName";
     EditText editText;
     ToDoModel toDoModel;
 
+//    @Inject
+//    Realm realm;
+
     @Inject
-    Realm realm;
+    ToDoRepository toDoRepository;
 
     public static Intent getEditActivity(Activity activity, String id) {
         Intent intent = new Intent(activity, EditActivity.class);
@@ -44,7 +46,7 @@ public class EditActivity extends AppCompatActivity implements Button.OnClickLis
         Bundle bundle = getIntent().getExtras();
         String itemName = (String) bundle.get(ITEM_NAME);
 
-        toDoModel = realm.where(ToDoModel.class).equalTo(ToDoModel.ID, itemName).findFirst();
+        toDoModel = toDoRepository.getRealmModel(itemName);
         editText = editBinding.editToDoText;
         editText.setText(toDoModel.getToDoName());
         Button editSaveBtn = editBinding.editSaveBtn;
@@ -56,12 +58,7 @@ public class EditActivity extends AppCompatActivity implements Button.OnClickLis
         if (v.getId() == R.id.editSaveBtn) {
             InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
-            realm.executeTransaction(new Realm.Transaction() {
-                @Override
-                public void execute(Realm realm) {
-                    toDoModel.setToDoName(editText.getText().toString());
-                }
-            });
+            toDoRepository.editToDo(toDoModel, editText.getText().toString());
             supportFinishAfterTransition();
         }
     }

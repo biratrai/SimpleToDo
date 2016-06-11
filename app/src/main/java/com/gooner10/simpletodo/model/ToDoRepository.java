@@ -8,6 +8,12 @@ import java.util.List;
 public interface ToDoRepository {
 
     void deleteToDo(ToDoModel toDoModel);
+
     void saveToDo(String mNewToDo);
+
+    void editToDo(ToDoModel toDoModel, String mEditToDo);
+
+    ToDoModel getRealmModel(String toDoModel);
+
     List<ToDoModel> getToDoList();
 }

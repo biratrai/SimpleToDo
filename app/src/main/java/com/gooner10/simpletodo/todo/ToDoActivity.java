@@ -1,26 +1,19 @@
 package com.gooner10.simpletodo.todo;
 
 import android.animation.Animator;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityOptionsCompat;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.support.v7.widget.helper.ItemTouchHelper;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewAnimationUtils;
-import android.view.WindowManager;
-import android.widget.Button;
-import android.widget.EditText;
 
 import com.gooner10.simpletodo.R;
 import com.gooner10.simpletodo.ToDoApplication;
@@ -40,6 +33,7 @@ public class ToDoActivity extends AppCompatActivity implements ToDoItemsAdapter.
     private ToDoContract.UserActionsListener mActionsListener;
     private FloatingActionButton fab;
     private ActivityMainBinding mainBinding;
+    private static final String SCENE_TRANSITION = "toDoTransition";
 
     @Inject
     ToDoRepository toDoRepository;
@@ -67,8 +61,13 @@ public class ToDoActivity extends AppCompatActivity implements ToDoItemsAdapter.
         configureFabButton();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mActionsListener.loadToDo();
+    }
+
     private void configureRecyclerViewSwipe(RecyclerView mRecyclerView) {
-        // Adding Swipe to delete on RecyclerView with ItemTouchHelper
         ItemTouchHelper.SimpleCallback simpleItemTouchCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
             @Override
             public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder,
@@ -78,7 +77,6 @@ public class ToDoActivity extends AppCompatActivity implements ToDoItemsAdapter.
 
             @Override
             public void onSwiped(RecyclerView.ViewHolder viewHolder, int swipeDir) {
-                //Remove swiped item from RealmDatabase and update the view
                 mActionsListener.deleteToDo(toDoItemsAdapter.getItem(viewHolder.getAdapterPosition()));
                 mActionsListener.loadToDo();
             }
@@ -107,7 +105,6 @@ public class ToDoActivity extends AppCompatActivity implements ToDoItemsAdapter.
                         Animator anim = ViewAnimationUtils.createCircularReveal(fab, cx, cy, 0, finalRadius);
                         anim.start();
                     }
-//                    addToDoFromDialog();
                     ToDoDialogFragment editNameDialog = ToDoDialogFragment.newInstance(R.string.add_new_todo);
                     editNameDialog.show(getSupportFragmentManager(), "fragment_edit_name");
                 }
@@ -115,80 +112,19 @@ public class ToDoActivity extends AppCompatActivity implements ToDoItemsAdapter.
         }
     }
 
-    public ToDoContract.UserActionsListener getUserActionsListener() {
-        return mActionsListener;
-    }
-
     public void addNewToDo(String newToDo) {
         mActionsListener.addNewToDo(newToDo);
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
-        Log.d(LOG_TAG, "onResume: ");
-        mActionsListener.loadToDo();
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        Log.d(LOG_TAG, "onPause: ");
-    }
-
-    /**
-     * Displays AlertDialog and presents editText for user input
-     */
-    private void addToDoFromDialog() {
-        // 1. Instantiate an AlertDialog.Builder with its constructor
-        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(ToDoActivity.this);
-
-        // 2. Chain together various setter methods to set the dialog characteristics
-        LayoutInflater inflater = getLayoutInflater();
-        View dialogView = inflater.inflate(R.layout.input_dialog_box, null);
-        alertDialogBuilder.setView(dialogView);
-        alertDialogBuilder.setTitle("Add a New Item");
-        final EditText editText = (EditText) dialogView.findViewById(R.id.addToDoText);
-
-        // 4. Set up the button and Get the AlertDialog from create() and show
-        final AlertDialog alertDialog = alertDialogBuilder.setPositiveButton(R.string.add_btn, null).create();
-
-        alertDialog.setOnShowListener(new DialogInterface.OnShowListener() {
-            @Override
-            public void onShow(DialogInterface dialog) {
-                Button b = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE);
-                b.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        if (editText != null) {
-                            String m_Text = editText.getText().toString();
-                            if (m_Text.length() == 0) {
-                                editText.setError("To Do Item is required!");
-                                Log.d(LOG_TAG, "Error");
-                            } else {
-                                mActionsListener.addNewToDo(m_Text);
-                                alertDialog.dismiss();
-                            }
-                        }
-                    }
-                });
-            }
-        });
-        alertDialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
-        alertDialog.show();
-    }
-
-    @Override
     public void showToDoUi(List<ToDoModel> mToDoList) {
         mainBinding.layoutContentMain.setUserList(mToDoList);
-        Log.d(LOG_TAG, "showToDoUi: " + mToDoList);
         toDoItemsAdapter.setItems(mToDoList);
     }
 
     @Override
     public void updateChanges() {
         mActionsListener.loadToDo();
-        Log.d(LOG_TAG, "updateChanges ToDo");
     }
 
     @Override
@@ -197,7 +133,7 @@ public class ToDoActivity extends AppCompatActivity implements ToDoItemsAdapter.
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
             ActivityOptionsCompat options = ActivityOptionsCompat.
-                    makeSceneTransitionAnimation(this, item.textItemName, "toDoTransition");
+                    makeSceneTransitionAnimation(this, item.textItemName, SCENE_TRANSITION);
             startActivity(intent, options.toBundle());
         } else {
             startActivity(intent);

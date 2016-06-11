@@ -13,7 +13,6 @@ public class ToDoRepositoryImpl implements ToDoRepository {
 
     public ToDoRepositoryImpl(Realm realm) {
         this.realm = realm;
-
     }
 
     @Override
@@ -33,6 +32,21 @@ public class ToDoRepositoryImpl implements ToDoRepository {
                 toDoModel.setToDoName(mNewToDo);
             }
         });
+    }
+
+    @Override
+    public void editToDo(final ToDoModel toDoModel, final String mEditToDo) {
+        realm.executeTransaction(new Realm.Transaction() {
+            @Override
+            public void execute(Realm realm) {
+                toDoModel.setToDoName(mEditToDo);
+            }
+        });
+    }
+
+    @Override
+    public ToDoModel getRealmModel(String itemName) {
+        return realm.where(ToDoModel.class).equalTo(ToDoModel.ID, itemName).findFirst();
     }
 
     @Override
