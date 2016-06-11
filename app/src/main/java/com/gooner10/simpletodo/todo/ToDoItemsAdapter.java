@@ -31,6 +31,7 @@ public class ToDoItemsAdapter extends RecyclerView.Adapter<ToDoItemsAdapter.Item
 
     public void setItems(List<ToDoModel> itemsName) {
         this.itemsName = itemsName;
+        Log.d("onBindViewHolder", "setItems: " + itemsName);
         notifyDataSetChanged();
     }
 
@@ -40,12 +41,10 @@ public class ToDoItemsAdapter extends RecyclerView.Adapter<ToDoItemsAdapter.Item
         return new ItemHolder(itemView, this);
     }
 
-
     @Override
     public void onBindViewHolder(ItemHolder holder, int position) {
-        Log.d("onBindViewHolder", ": "+itemsName.get(position).getToDoName());
         holder.setItemName(itemsName.get(position).getToDoName());
-        Log.d("onBindViewHolder", "textItemName: "+holder.textItemName.getText());
+        Log.d("onBindViewHolder", "ToDo: " + holder.textItemName.getText());
     }
 
     @Override
@@ -69,7 +68,7 @@ public class ToDoItemsAdapter extends RecyclerView.Adapter<ToDoItemsAdapter.Item
         return itemsName.get(position);
     }
 
-    public static class ItemHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+    public static class ItemHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         private ToDoItemsAdapter parent;
         TextView textItemName;
@@ -78,6 +77,7 @@ public class ToDoItemsAdapter extends RecyclerView.Adapter<ToDoItemsAdapter.Item
             super(itemView);
             itemView.setOnClickListener(this);
             this.parent = parent;
+            // Todo Use databinding
             textItemName = (TextView) itemView.findViewById(R.id.item_name);
         }
 
@@ -93,26 +93,4 @@ public class ToDoItemsAdapter extends RecyclerView.Adapter<ToDoItemsAdapter.Item
             }
         }
     }
-
-    //        public CharSequence getItemName() {
-//            return textItemName.getText();
-//        }
-    //    public void add(int location, String iName){
-//        itemsName.add(location, iName);
-//        notifyItemInserted(location);
-//    }
-
-//    public void add(String iName) {
-//
-////        itemsName.add(iName);
-//        notifyDataSetChanged();
-//    }
-//
-//    public void remove(int location) {
-//        if (location >= itemsName.size())
-//            return;
-//
-//        itemsName.get(location).deleteFromRealm();
-//        notifyItemRemoved(location);
-//    }
 }

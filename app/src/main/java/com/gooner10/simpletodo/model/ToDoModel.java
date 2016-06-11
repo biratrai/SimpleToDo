@@ -6,7 +6,8 @@ import io.realm.annotations.PrimaryKey;
 /**
  * Realm model class object for a ToDoList.
  */
-public class ToDoModel extends RealmObject{
+public class ToDoModel extends RealmObject {
+    public static final String ID = "id";
     @PrimaryKey
     private String id;
     private String toDoTitle;

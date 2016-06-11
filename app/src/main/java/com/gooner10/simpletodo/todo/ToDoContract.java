@@ -19,6 +19,9 @@ public interface ToDoContract {
     }
 
     interface UserActionsListener {
+        /**
+         * Loads @{>}
+         */
         void loadToDo();
 
         void addNewToDo(String mNewToDo);

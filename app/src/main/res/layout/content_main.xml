@@ -3,6 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+        <import type="android.view.View"/>
+        <import type="com.gooner10.simpletodo.model.ToDoModel"/>
+        <import type="java.util.List"/>
+        <variable name="user" type="ToDoModel"/>
+        <variable name="userList" type="List&lt;ToDoModel>"/>
+    </data>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -19,6 +27,7 @@
             android:id="@+id/noTaskText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:visibility="@{userList.size() > 0 ? View.GONE : View.VISIBLE}"
             android:text="@string/no_task_available" />
 
         <android.support.v7.widget.RecyclerView
