@@ -3,6 +3,7 @@ package com.gooner10.simpletodo.edit;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -11,15 +12,21 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.gooner10.simpletodo.R;
+import com.gooner10.simpletodo.ToDoApplication;
+import com.gooner10.simpletodo.databinding.ActivityEditBinding;
 import com.gooner10.simpletodo.model.ToDoModel;
+
+import javax.inject.Inject;
 
 import io.realm.Realm;
 
 public class EditActivity extends AppCompatActivity implements Button.OnClickListener {
     private static final String ITEM_NAME = "itemName";
     EditText editText;
-    Realm realm;
     ToDoModel toDoModel;
+
+    @Inject
+    Realm realm;
 
     public static Intent getEditActivity(Activity activity, String id) {
         Intent intent = new Intent(activity, EditActivity.class);
@@ -30,19 +37,17 @@ public class EditActivity extends AppCompatActivity implements Button.OnClickLis
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_edit);
+        ToDoApplication.getToDoApplication().getComponent().inject(this);
 
-        // Todo use databinging
+        ActivityEditBinding editBinding = DataBindingUtil.setContentView(this, R.layout.activity_edit);
+
         Bundle bundle = getIntent().getExtras();
         String itemName = (String) bundle.get(ITEM_NAME);
-        realm = Realm.getDefaultInstance();
+
         toDoModel = realm.where(ToDoModel.class).equalTo(ToDoModel.ID, itemName).findFirst();
-        editText = (EditText) findViewById(R.id.editToDoText);
-        if (editText != null) {
-            editText.setText(toDoModel.getToDoName());
-        }
-//        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
-        Button editSaveBtn = (Button) findViewById(R.id.editSaveBtn);
+        editText = editBinding.editToDoText;
+        editText.setText(toDoModel.getToDoName());
+        Button editSaveBtn = editBinding.editSaveBtn;
         editSaveBtn.setOnClickListener(this);
     }
 

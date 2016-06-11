@@ -9,10 +9,18 @@ import io.realm.RealmConfiguration;
  * ToDoApplication BaseApplication Class
  */
 public class ToDoApplication extends Application {
+    private ApplicationComponent component;
+    private static ToDoApplication toDoApplication;
+
+    public static ToDoApplication getToDoApplication() {
+        return toDoApplication;
+    }
+
     @Override
     public void onCreate() {
         super.onCreate();
 
+        setUpComponents();
         // Configure Realm for the application
         RealmConfiguration realmConfiguration = new RealmConfiguration.Builder(this)
                 .name("todo.realm")
@@ -23,5 +31,17 @@ public class ToDoApplication extends Application {
 
         // Make this Realm the default
         Realm.setDefaultConfiguration(realmConfiguration);
+        toDoApplication = this;
+    }
+
+    private void setUpComponents() {
+        component = DaggerApplicationComponent.builder()
+                .applicationModule(new ApplicationModule(this))
+                .build();
+    }
+
+
+    public ApplicationComponent getComponent() {
+        return component;
     }
 }

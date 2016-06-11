@@ -2,22 +2,19 @@ package com.gooner10.simpletodo.todo;
 
 import com.gooner10.simpletodo.model.ToDoModel;
 import com.gooner10.simpletodo.model.ToDoRepository;
-import com.gooner10.simpletodo.model.ToDoRepositoryImpl;
-
-import io.realm.Realm;
 
 /**
  * Listens to user actions from the UI ({@link ToDoActivity}), retrieves the data and updates the
  * UI as required.
  */
 public class ToDoPresenter implements ToDoContract.UserActionsListener {
+
     private final ToDoRepository mToDoRepository;
     private final ToDoContract.View mToDoView;
-    Realm realm;
 
-    public ToDoPresenter(ToDoContract.View mToDoView) {
+    public ToDoPresenter(ToDoContract.View mToDoView, ToDoRepository toDoRepository) {
         this.mToDoView = mToDoView;
-        mToDoRepository = new ToDoRepositoryImpl();
+        this.mToDoRepository = toDoRepository;
     }
 
     @Override

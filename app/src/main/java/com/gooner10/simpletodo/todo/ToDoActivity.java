@@ -23,12 +23,15 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.gooner10.simpletodo.R;
-import com.gooner10.simpletodo.ToDoDialogFragment;
+import com.gooner10.simpletodo.ToDoApplication;
 import com.gooner10.simpletodo.databinding.ActivityMainBinding;
 import com.gooner10.simpletodo.edit.EditActivity;
 import com.gooner10.simpletodo.model.ToDoModel;
+import com.gooner10.simpletodo.model.ToDoRepository;
 
 import java.util.List;
+
+import javax.inject.Inject;
 
 public class ToDoActivity extends AppCompatActivity implements ToDoItemsAdapter.OnItemClickListener,
         ToDoContract.View {
@@ -38,13 +41,16 @@ public class ToDoActivity extends AppCompatActivity implements ToDoItemsAdapter.
     private FloatingActionButton fab;
     private ActivityMainBinding mainBinding;
 
+    @Inject
+    ToDoRepository toDoRepository;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ToDoApplication.getToDoApplication().getComponent().inject(this);
         mainBinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
 
-        // Todo Use Dagger to inject
-        mActionsListener = new ToDoPresenter(this);
+        mActionsListener = new ToDoPresenter(this, toDoRepository);
 
         Toolbar toolbar = mainBinding.toolbar;
         setSupportActionBar(toolbar);

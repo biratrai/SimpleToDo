@@ -9,10 +9,11 @@ import io.realm.Realm;
  * Created by Gooner10 on 6/10/16.
  */
 public class ToDoRepositoryImpl implements ToDoRepository {
-    Realm realm;
+    private final Realm realm;
 
-    public ToDoRepositoryImpl() {
-        this.realm = Realm.getDefaultInstance();
+    public ToDoRepositoryImpl(Realm realm) {
+        this.realm = realm;
+
     }
 
     @Override
