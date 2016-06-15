@@ -1,14 +1,14 @@
 package com.gooner10.simpletodo.todo;
 
-import android.content.Context;
+import android.databinding.DataBindingUtil;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.gooner10.simpletodo.R;
+import com.gooner10.simpletodo.databinding.SingleRowTodoAdapterBinding;
 import com.gooner10.simpletodo.model.ToDoModel;
 
 import java.util.ArrayList;
@@ -21,43 +21,38 @@ import java.util.List;
 public class ToDoItemsAdapter extends RecyclerView.Adapter<ToDoItemsAdapter.ItemHolder> {
 
     private List<ToDoModel> itemsName;
-    private OnItemClickListener onItemClickListener;
-    private LayoutInflater layoutInflater;
+    private final OnItemClickListener onItemClickListener;
 
-    public ToDoItemsAdapter(Context context) {
-        layoutInflater = LayoutInflater.from(context);
+    public ToDoItemsAdapter(OnItemClickListener onItemClickListener) {
         itemsName = new ArrayList<>();
+        this.onItemClickListener = onItemClickListener;
     }
 
     public void setItems(List<ToDoModel> itemsName) {
         this.itemsName = itemsName;
-        Log.d("onBindViewHolder", "setItems: " + itemsName);
         notifyDataSetChanged();
     }
 
     @Override
     public ItemHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View itemView = layoutInflater.inflate(R.layout.single_row_todo_adapter, parent, false);
-        return new ItemHolder(itemView, this);
+        SingleRowTodoAdapterBinding todoAdapterBinding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()), R.layout.single_row_todo_adapter, parent, false);
+        return new ItemHolder(todoAdapterBinding);
     }
 
     @Override
-    public void onBindViewHolder(ItemHolder holder, int position) {
+    public void onBindViewHolder(final ItemHolder holder, int position) {
         holder.setItemName(itemsName.get(position).getToDoName());
-        Log.d("onBindViewHolder", "ToDo: " + holder.textItemName.getText());
+        holder.textItemName.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onItemClickListener.onItemClick(holder, holder.getAdapterPosition());
+            }
+        });
     }
 
     @Override
     public int getItemCount() {
         return itemsName.size();
-    }
-
-    public void setOnItemClickListener(OnItemClickListener listener) {
-        onItemClickListener = listener;
-    }
-
-    public OnItemClickListener getOnItemClickListener() {
-        return onItemClickListener;
     }
 
     public interface OnItemClickListener {
@@ -68,29 +63,17 @@ public class ToDoItemsAdapter extends RecyclerView.Adapter<ToDoItemsAdapter.Item
         return itemsName.get(position);
     }
 
-    public static class ItemHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public static class ItemHolder extends RecyclerView.ViewHolder {
 
-        private ToDoItemsAdapter parent;
-        TextView textItemName;
+        final TextView textItemName;
 
-        public ItemHolder(View itemView, ToDoItemsAdapter parent) {
-            super(itemView);
-            itemView.setOnClickListener(this);
-            this.parent = parent;
-            // Todo Use databinding
-            textItemName = (TextView) itemView.findViewById(R.id.item_name);
+        public ItemHolder(SingleRowTodoAdapterBinding todoAdapterBinding) {
+            super(todoAdapterBinding.getRoot());
+            textItemName = todoAdapterBinding.itemName;
         }
 
         public void setItemName(CharSequence name) {
             textItemName.setText(name);
-        }
-
-        @Override
-        public void onClick(View v) {
-            final OnItemClickListener listener = parent.getOnItemClickListener();
-            if (listener != null) {
-                listener.onItemClick(this, getAdapterPosition());
-            }
         }
     }
 }

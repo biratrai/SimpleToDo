@@ -6,7 +6,7 @@ import java.util.UUID;
 import io.realm.Realm;
 
 /**
- * Created by Gooner10 on 6/10/16.
+ * ToDoRepositoryIml which is a realm helper class for querying realm database
  */
 public class ToDoRepositoryImpl implements ToDoRepository {
     private final Realm realm;

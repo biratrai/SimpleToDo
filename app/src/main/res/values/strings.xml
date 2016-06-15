@@ -7,4 +7,7 @@
     <string name="save_btn">Save</string>
     <string name="add_new_todo">Add new ToDo</string>
     <string name="add_btn">Add</string>
+    <string name="cancel">Cancel</string>
+    <string name="add">Add</string>
+    <string name="save">Save</string>
 </resources>

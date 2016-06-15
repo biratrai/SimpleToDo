@@ -1,7 +1,7 @@
 package com.gooner10.simpletodo;
 
 /**
- * Created by Gooner10 on 6/10/16.
+ * Dagger Component
  */
 
 import com.gooner10.simpletodo.edit.EditActivity;

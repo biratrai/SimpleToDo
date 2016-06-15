@@ -15,6 +15,7 @@ import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.View;
 import android.view.ViewAnimationUtils;
 
+import com.gooner10.simpletodo.Constants;
 import com.gooner10.simpletodo.R;
 import com.gooner10.simpletodo.ToDoApplication;
 import com.gooner10.simpletodo.databinding.ActivityMainBinding;
@@ -33,7 +34,7 @@ public class ToDoActivity extends AppCompatActivity implements ToDoItemsAdapter.
     private ToDoContract.UserActionsListener mActionsListener;
     private FloatingActionButton fab;
     private ActivityMainBinding mainBinding;
-    private static final String SCENE_TRANSITION = "toDoTransition";
+
 
     @Inject
     ToDoRepository toDoRepository;
@@ -50,9 +51,8 @@ public class ToDoActivity extends AppCompatActivity implements ToDoItemsAdapter.
         setSupportActionBar(toolbar);
 
         RecyclerView mRecyclerView = mainBinding.layoutContentMain.recyclerview;
-        // Todo Remove context
+
         toDoItemsAdapter = new ToDoItemsAdapter(this);
-        toDoItemsAdapter.setOnItemClickListener(this);
         mRecyclerView.setAdapter(toDoItemsAdapter);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
@@ -133,33 +133,11 @@ public class ToDoActivity extends AppCompatActivity implements ToDoItemsAdapter.
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
             ActivityOptionsCompat options = ActivityOptionsCompat.
-                    makeSceneTransitionAnimation(this, item.textItemName, SCENE_TRANSITION);
+                    makeSceneTransitionAnimation(this, item.textItemName, Constants.SCENE_TRANSITION);
             startActivity(intent, options.toBundle());
         } else {
             startActivity(intent);
         }
     }
-
-//
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        // Inflate the menu; this adds items to the action bar if it is present.
-//        getMenuInflater().inflate(R.menu.menu_main, menu);
-//        return true;
-//    }
-//
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//        // Handle action bar item clicks here. The action bar will
-//        // automatically handle clicks on the Home/Up button, so long
-//        // as you specify a parent activity in AndroidManifest.xml.
-//        int id = item.getItemId();
-//
-//        //noinspection SimplifiableIfStatement
-//        if (id == R.id.action_settings) {
-//            return true;
-//        }
-//
-//        return super.onOptionsItemSelected(item);
 }
 
