@@ -1,40 +1,43 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:orientation="vertical">
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <EditText
-        android:id="@+id/addToDoText"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:layout_marginLeft="4dp"
-        android:layout_marginRight="4dp"
-        android:layout_marginTop="4dp"
-        android:hint="@string/to_do_work_hint"
-        android:imeOptions="actionSend"
-        android:inputType="text" />
+        android:layout_height="wrap_content">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/text_input_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-        <Button
-            android:id="@+id/cancel_input_btn"
-            android:layout_width="wrap_content"
+            <EditText
+                android:id="@+id/addToDoText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:layout_marginLeft="4dp"
+                android:layout_marginRight="4dp"
+                android:layout_marginTop="4dp"
+                android:hint="@string/to_do_work_hint" />
+        </android.support.design.widget.TextInputLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_below="@+id/text_input_layout">
 
-            android:text="@string/cancel" />
+            <Button
+                android:id="@+id/cancel_input_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/cancel" />
 
-        <Button
-            android:id="@+id/add_input_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/add" />
-    </LinearLayout>
+            <Button
+                android:id="@+id/add_input_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/add" />
+        </LinearLayout>
 
-</LinearLayout>
-
-
-    <!--android:imeOptions="actionSend"-->
+    </RelativeLayout>
+</layout>

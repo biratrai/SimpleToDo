@@ -10,4 +10,5 @@
     <string name="cancel">Cancel</string>
     <string name="add">Add</string>
     <string name="save">Save</string>
+    <string name="empty_input_error">To Do Item is required!</string>
 </resources>

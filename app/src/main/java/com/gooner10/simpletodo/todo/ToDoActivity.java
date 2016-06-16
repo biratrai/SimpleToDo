@@ -104,8 +104,8 @@ public class ToDoActivity extends AppCompatActivity implements ToDoItemsAdapter.
                         Animator anim = ViewAnimationUtils.createCircularReveal(fab, cx, cy, 0, finalRadius);
                         anim.start();
                     }
-                    ToDoDialogFragment editNameDialog = ToDoDialogFragment.newInstance(R.string.add_new_todo);
-                    editNameDialog.show(getSupportFragmentManager(), "fragment_edit_name");
+                    ToDoDialogFragment mToDoDialogFragment = ToDoDialogFragment.newInstance(R.string.add_new_todo);
+                    mToDoDialogFragment.show(getSupportFragmentManager(), Constants.TODO_DIALOG_FRAGMENT_TAG);
                 }
             });
         }

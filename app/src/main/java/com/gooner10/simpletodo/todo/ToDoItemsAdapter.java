@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.gooner10.simpletodo.R;
-import com.gooner10.simpletodo.databinding.SingleRowTodoAdapterBinding;
+import com.gooner10.simpletodo.databinding.RowTodoAdapterBinding;
 import com.gooner10.simpletodo.model.ToDoModel;
 
 import java.util.ArrayList;
@@ -35,7 +35,7 @@ public class ToDoItemsAdapter extends RecyclerView.Adapter<ToDoItemsAdapter.Item
 
     @Override
     public ItemHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        SingleRowTodoAdapterBinding todoAdapterBinding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()), R.layout.row_todo_adapter, parent, false);
+        RowTodoAdapterBinding todoAdapterBinding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()), R.layout.row_todo_adapter, parent, false);
         return new ItemHolder(todoAdapterBinding);
     }
 
@@ -67,7 +67,7 @@ public class ToDoItemsAdapter extends RecyclerView.Adapter<ToDoItemsAdapter.Item
 
         final TextView textItemName;
 
-        public ItemHolder(SingleRowTodoAdapterBinding todoAdapterBinding) {
+        public ItemHolder(RowTodoAdapterBinding todoAdapterBinding) {
             super(todoAdapterBinding.getRoot());
             textItemName = todoAdapterBinding.itemName;
         }
