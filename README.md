@@ -9,7 +9,7 @@ The following **required** [functionality](https://gist.github.com/nesquena/8432
 * [x] User can **Add** an item by clicking a floating action button which will open a new dialogFragment with input EditText.
 * [x] User can **Delete** the item by swiping the item.
 * [x] User can **Edit** the item by tapping the item which will open a new dialog activity with EditText.
-* [x] User can **persist todo items** [into Realm database](https://realm.io/docs/java/latest/) and retrieve them properly on app restart or orientation changes.
+* [x] User can **persist todo items** into [Realm database](https://realm.io/docs/java/latest/) and retrieve them properly on app restart or orientation changes.
 
 ## Technologies used.
 * [x] Performed [Dagger2](http://google.github.io/dagger/) dependency injection for injecting dependencies and making testing easier and clean.
