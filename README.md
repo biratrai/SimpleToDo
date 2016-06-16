@@ -2,7 +2,9 @@
 
 Simple Todo is an android app that allows building a todo list and with functionality like adding new ToDo items, editing and deleting an ToDo item.
 
-## Features present in the app.
+Time spent: About 12+ hrs in chunks over a week.
+
+## Completed user stories:
 
 The following **required** [functionality](https://gist.github.com/nesquena/843228e83fdc4f5ddc4e) is completed:
 
@@ -21,7 +23,7 @@ The following **required** [functionality](https://gist.github.com/nesquena/8432
 * [x] Followed [material design](https://developer.android.com/design/material/index.html) guidelines to bring material desing to the app.
 * [x] Used animation features like [shared Element transition](https://guides.codepath.com/android/Shared-Element-Activity-Transition) and [circular reveal](https://guides.codepath.com/android/Circular-Reveal-Animation).
 
-## Sample Demonstration of the project
+## Walkthrough of all user stories implemented in the project
 
 ![todo](https://cloud.githubusercontent.com/assets/2682565/16129147/a96abb3e-33d1-11e6-92b4-9c2b9c6c763a.gif)
 
