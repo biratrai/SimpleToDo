@@ -18,6 +18,8 @@ The following **required** [functionality](https://gist.github.com/nesquena/8432
 * [x] Implemented [MVP](http://fernandocejas.com/2015/07/18/architecting-android-the-evolution/) design pattern following [Clean Coding architecture](http://blog.8thlight.com/uncle-bob/2012/08/13/the-clean-architecture.html).
 * [x] Used [DataBinding library](https://developer.android.com/topic/libraries/data-binding/index.html) for view and data injection.
 * [x] Used [recyclerView](https://guides.codepath.com/android/using-the-recyclerview) which uses ViewHolder pattern for efficient use of view objects.
+* [x] Followed [material design](https://developer.android.com/design/material/index.html) guidelines to bring material desing to the app.
+* [x] Used animation features like [shared Element transition](https://guides.codepath.com/android/Shared-Element-Activity-Transition) and [circualar reveal](https://guides.codepath.com/android/Circular-Reveal-Animation).
 
 ## Sample Demonstration of the project
 
