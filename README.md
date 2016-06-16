@@ -14,7 +14,7 @@ The following **required** [functionality](https://gist.github.com/nesquena/8432
 * [x] User can **Edit** the item by tapping the item which will open a new dialog activity with EditText.
 * [x] User can **persist todo items** into [Realm database](https://realm.io/docs/java/latest/) and retrieve them properly on app restart or orientation changes.
 
-## Best practices and technologies followed.
+## Best practices and technologies applied.
 * [x] Performed [Dagger2](http://google.github.io/dagger/) dependency injection for injecting dependencies and making testing easier and clean.
 * [x] Used [Mockito](https://github.com/mockito/mockito) for Mock implementation required during testing.
 * [x] Used [Espresso](https://google.github.io/android-testing-support-library/docs/espresso/) for UI Testing.
