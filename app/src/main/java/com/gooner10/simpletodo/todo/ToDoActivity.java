@@ -35,7 +35,6 @@ public class ToDoActivity extends AppCompatActivity implements ToDoItemsAdapter.
     private FloatingActionButton fab;
     private ActivityMainBinding mainBinding;
 
-
     @Inject
     ToDoRepository toDoRepository;
 
@@ -89,7 +88,7 @@ public class ToDoActivity extends AppCompatActivity implements ToDoItemsAdapter.
      * Circular Reveal Animation added for the fab button in onClick
      */
     private void configureFabButton() {
-        fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab = mainBinding.fab;
         if (fab != null) {
             fab.setOnClickListener(new View.OnClickListener() {
                 @Override

@@ -35,7 +35,7 @@ public class ToDoItemsAdapter extends RecyclerView.Adapter<ToDoItemsAdapter.Item
 
     @Override
     public ItemHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        SingleRowTodoAdapterBinding todoAdapterBinding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()), R.layout.single_row_todo_adapter, parent, false);
+        SingleRowTodoAdapterBinding todoAdapterBinding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()), R.layout.row_todo_adapter, parent, false);
         return new ItemHolder(todoAdapterBinding);
     }
 
