@@ -2,11 +2,7 @@
 
 Simple Todo is an android app that allows building a todo list and with functionality like adding new ToDo items, editing and deleting an ToDo item.
 
-Submitted by: Birat Rai
-
-Time spent: 
-
-## User Stories
+## Features present in the app.
 
 The following **required** [functionality](https://gist.github.com/nesquena/843228e83fdc4f5ddc4e) is completed:
 
@@ -22,6 +18,13 @@ The following **optional** features are implemented:
 * [x] User can **Delete** the item by swiping the item.
 * [x] User can **Edit** the item by tapping the item which will open a new dialog activity with EditText.
 
+## Technologies used.
+* [x] [Dagger2](http://google.github.io/dagger/) for dependency injection.
+* [x] [Mockito](https://github.com/mockito/mockito) for Mock implmentation.
+* [x] [Espresso](https://google.github.io/android-testing-support-library/docs/espresso/) for UI Testing.
+* [x] Implemented [MVP](http://fernandocejas.com/2015/07/18/architecting-android-the-evolution/) design pattern following [Clean Coding architecture](http://blog.8thlight.com/uncle-bob/2012/08/13/the-clean-architecture.html).
+* [x] Used [DataBinding library](https://developer.android.com/topic/libraries/data-binding/index.html) for view and data injection.
+* 
 ## Sample Demonstration of the project
 
 ![todo](https://cloud.githubusercontent.com/assets/2682565/16129147/a96abb3e-33d1-11e6-92b4-9c2b9c6c763a.gif)
