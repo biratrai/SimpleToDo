@@ -18,23 +18,14 @@ The following **optional** features are implemented:
 
 * [x] Persist the todo items [into Realm database](https://realm.io/docs/java/latest/).
 * [x] Used [recyclerView](https://guides.codepath.com/android/using-the-recyclerview) which uses ViewHolder pattern for efficient use of view objects.
+* [x] User can **Add** an item by clicking a floating action button.
+* [x] User can **Delete** the item by swiping the item.
+* [x] User can **Edit** the item by swiping the item.
 
-The following **additional** features are implemented:
-
-* [x] Checkboxes! User can **check off (and delete) an item by checking its checkbox**
-* [x] User can **tap a floating action button to add an item -- less onscreen clutter**
-* [x] Adding and editing items now both use EditItemActivity for consistency and, again, less clutter
-* [x] User can **select a due date or no due date**
-* [x] User can **select a due date via a datepicker**
-* [x] **Todo items are now always sorted by due date**
-* [x] User gets one of many **congratulations toasts when checking off an item**
-* [x] User can **enter items with the first letter capitalized without having to tap shift first**
-
-## Video Walkthrough 
-
-Here's a walkthrough of implemented user stories:
+## Sample Demonstration of the project
 
 ![todo](https://cloud.githubusercontent.com/assets/2682565/16129147/a96abb3e-33d1-11e6-92b4-9c2b9c6c763a.gif)
+
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
 ## Notes
