@@ -18,9 +18,9 @@ The following **optional** features are implemented:
 
 * [x] Persist the todo items [into Realm database](https://realm.io/docs/java/latest/).
 * [x] Used [recyclerView](https://guides.codepath.com/android/using-the-recyclerview) which uses ViewHolder pattern for efficient use of view objects.
-* [x] User can **Add** an item by clicking a floating action button.
+* [x] User can **Add** an item by clicking a floating action button which will open a new dialogFragment with input EditText.
 * [x] User can **Delete** the item by swiping the item.
-* [x] User can **Edit** the item by swiping the item.
+* [x] User can **Edit** the item by tapping the item which will open a new dialog activity with EditText.
 
 ## Sample Demonstration of the project
 
