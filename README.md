@@ -19,9 +19,9 @@ The following **optional** features are implemented:
 * [x] User can **Edit** the item by tapping the item which will open a new dialog activity with EditText.
 
 ## Technologies used.
-* [x] [Dagger2](http://google.github.io/dagger/) for dependency injection.
-* [x] [Mockito](https://github.com/mockito/mockito) for Mock implmentation.
-* [x] [Espresso](https://google.github.io/android-testing-support-library/docs/espresso/) for UI Testing.
+* [x] Performed [Dagger2](http://google.github.io/dagger/) dependency injection for injecting dependencies and making testing easier and clean.
+* [x] Used [Mockito](https://github.com/mockito/mockito) for Mock implementation required during testing.
+* [x] Used [Espresso](https://google.github.io/android-testing-support-library/docs/espresso/) for UI Testing.
 * [x] Implemented [MVP](http://fernandocejas.com/2015/07/18/architecting-android-the-evolution/) design pattern following [Clean Coding architecture](http://blog.8thlight.com/uncle-bob/2012/08/13/the-clean-architecture.html).
 * [x] Used [DataBinding library](https://developer.android.com/topic/libraries/data-binding/index.html) for view and data injection.
 
