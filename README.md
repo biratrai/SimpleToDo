@@ -24,7 +24,7 @@ The following **optional** features are implemented:
 * [x] [Espresso](https://google.github.io/android-testing-support-library/docs/espresso/) for UI Testing.
 * [x] Implemented [MVP](http://fernandocejas.com/2015/07/18/architecting-android-the-evolution/) design pattern following [Clean Coding architecture](http://blog.8thlight.com/uncle-bob/2012/08/13/the-clean-architecture.html).
 * [x] Used [DataBinding library](https://developer.android.com/topic/libraries/data-binding/index.html) for view and data injection.
-* 
+
 ## Sample Demonstration of the project
 
 ![todo](https://cloud.githubusercontent.com/assets/2682565/16129147/a96abb3e-33d1-11e6-92b4-9c2b9c6c763a.gif)
