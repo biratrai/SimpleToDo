@@ -8,7 +8,7 @@ Time spent: About 12+ hrs in chunks over a week.
 
 The following **required** [functionality](https://gist.github.com/nesquena/843228e83fdc4f5ddc4e) is completed:
 
-* [x] Shows the user a list of todo items in list which uses CustomAdapter [RecyclerView.Adapter](https://guides.codepath.com/android/using-the-recyclerview).
+* [x] Shows the user a **List of todo** items in list which uses CustomAdapter [RecyclerView.Adapter](https://guides.codepath.com/android/using-the-recyclerview).
 * [x] User can **Add** an item by clicking a floating action button which will open a new dialogFragment with input EditText.
 * [x] User can **Delete** the item by swiping the item.
 * [x] User can **Edit** the item by tapping the item which will open a new dialog activity with EditText.
