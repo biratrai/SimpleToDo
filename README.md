@@ -30,8 +30,6 @@ The following **required** [functionality](https://gist.github.com/nesquena/8432
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
-## Notes
-
 ## License
 
     Copyright 2016 Birat Rai
