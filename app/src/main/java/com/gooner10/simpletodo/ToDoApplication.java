@@ -4,6 +4,9 @@ import android.app.Application;
 
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
+import timber.log.Timber;
+
+import static io.realm.RealmConfiguration.*;
 
 /**
  * ToDoApplication BaseApplication Class
@@ -22,16 +25,22 @@ public class ToDoApplication extends Application {
 
         setUpComponents();
         // Configure Realm for the application
-        RealmConfiguration realmConfiguration = new RealmConfiguration.Builder(this)
+        Realm.init(this);
+        RealmConfiguration realmConfiguration = new RealmConfiguration.Builder()
                 .name("todo.realm")
                 .build();
 
-//        Realm.deleteRealm(realmConfiguration); //Deletes the realm,
+        Realm.deleteRealm(realmConfiguration); //Deletes the realm,
         // use when you want a clean slate for dev/etc
 
         // Make this Realm the default
         Realm.setDefaultConfiguration(realmConfiguration);
         toDoApplication = this;
+
+        // Initialize timber on debug build
+        if (BuildConfig.DEBUG) {
+            Timber.plant(new Timber.DebugTree());
+        }
     }
 
     private void setUpComponents() {
@@ -39,7 +48,6 @@ public class ToDoApplication extends Application {
                 .applicationModule(new ApplicationModule(this))
                 .build();
     }
-
 
     public ApplicationComponent getComponent() {
         return component;
