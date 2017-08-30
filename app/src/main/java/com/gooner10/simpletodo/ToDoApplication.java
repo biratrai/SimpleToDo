@@ -1,17 +1,15 @@
 package com.gooner10.simpletodo;
 
-import android.app.Application;
-
+import dagger.android.AndroidInjector;
+import dagger.android.DaggerApplication;
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
 import timber.log.Timber;
 
-import static io.realm.RealmConfiguration.*;
-
 /**
  * ToDoApplication BaseApplication Class
  */
-public class ToDoApplication extends Application {
+public class ToDoApplication extends DaggerApplication {
     private ApplicationComponent component;
     private static ToDoApplication toDoApplication;
 
@@ -23,7 +21,6 @@ public class ToDoApplication extends Application {
     public void onCreate() {
         super.onCreate();
 
-        setUpComponents();
         // Configure Realm for the application
         Realm.init(this);
         RealmConfiguration realmConfiguration = new RealmConfiguration.Builder()
@@ -43,10 +40,10 @@ public class ToDoApplication extends Application {
         }
     }
 
-    private void setUpComponents() {
-        component = DaggerApplicationComponent.builder()
-                .applicationModule(new ApplicationModule(this))
-                .build();
+    @Override
+    protected AndroidInjector<? extends DaggerApplication> applicationInjector() {
+//        ApplicationComponent applicationComponent = DaggerAppCo
+        return null;
     }
 
     public ApplicationComponent getComponent() {

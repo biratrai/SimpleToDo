@@ -10,10 +10,12 @@ import com.gooner10.simpletodo.todo.ToDoActivity;
 import javax.inject.Singleton;
 
 import dagger.Component;
+import dagger.android.AndroidInjector;
+import dagger.android.DaggerApplication;
 
 @Singleton
 @Component(modules = {ApplicationModule.class})
-public interface ApplicationComponent {
+public interface ApplicationComponent extends AndroidInjector<DaggerApplication> {
 
     void inject(ToDoActivity toDoActivity);
 
