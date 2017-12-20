@@ -1,26 +1,24 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
-//def currentVersion = file("./version.txt").text.trim()
-
 buildscript {
+    ext.kotlin_version = '1.2.10'
     repositories {
+        google()
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.1.0'
-
-        classpath "io.realm:realm-gradle-plugin:0.91.0"
-
-        classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
+        classpath 'com.android.tools.build:gradle:3.0.1'
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath "io.realm:realm-gradle-plugin:3.5.0"
+//        classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
     }
 }
-//version = currentVersion
 
 allprojects {
-
     repositories {
+        google()
         jcenter()
     }
 }
