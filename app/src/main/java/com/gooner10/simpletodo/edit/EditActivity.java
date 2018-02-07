@@ -29,7 +29,7 @@ public class EditActivity extends AppCompatActivity {
 
     public static Intent getEditActivity(Activity activity, String id) {
         Intent intent = new Intent(activity, EditActivity.class);
-        intent.putExtra(Constants.ITEM_NAME, id);
+        intent.putExtra(Constants.INSTANCE.getITEM_NAME(), id);
         return intent;
     }
 
@@ -40,7 +40,7 @@ public class EditActivity extends AppCompatActivity {
 
         ActivityEditBinding editBinding = DataBindingUtil.setContentView(this, R.layout.activity_edit);
 
-        String itemName = (String) getIntent().getExtras().get(Constants.ITEM_NAME);
+        String itemName = (String) getIntent().getExtras().get(Constants.INSTANCE.getITEM_NAME());
 
         toDoModel = toDoRepository.getRealmModel(itemName);
 

@@ -105,7 +105,7 @@ public class ToDoActivity extends AppCompatActivity implements ToDoItemsAdapter.
                         anim.start();
                     }
                     ToDoDialogFragment mToDoDialogFragment = ToDoDialogFragment.newInstance(R.string.add_new_todo);
-                    mToDoDialogFragment.show(getSupportFragmentManager(), Constants.TODO_DIALOG_FRAGMENT_TAG);
+                    mToDoDialogFragment.show(getSupportFragmentManager(), Constants.INSTANCE.getTODO_DIALOG_FRAGMENT_TAG());
                 }
             });
         }
@@ -132,7 +132,7 @@ public class ToDoActivity extends AppCompatActivity implements ToDoItemsAdapter.
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
             ActivityOptionsCompat options = ActivityOptionsCompat.
-                    makeSceneTransitionAnimation(this, item.textItemName, Constants.SCENE_TRANSITION);
+                    makeSceneTransitionAnimation(this, item.textItemName, Constants.INSTANCE.getSCENE_TRANSITION());
             startActivity(intent, options.toBundle());
         } else {
             startActivity(intent);
