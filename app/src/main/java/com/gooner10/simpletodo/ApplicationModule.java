@@ -29,15 +29,15 @@ public class ApplicationModule {
         return mApplication;
     }
 
-    @Provides
-    @Singleton
-    Realm provideRealm() {
-        return Realm.getDefaultInstance();
-    }
-
-    @Provides
-    @Singleton
-    public ToDoRepository provideRepository(Realm realm) {
-        return new ToDoRepositoryImpl(realm);
-    }
+//    @Provides
+//    @Singleton
+//    Realm provideRealm() {
+//        return Realm.getDefaultInstance();
+//    }
+//
+//    @Provides
+//    @Singleton
+//    public ToDoRepository provideRepository(Realm realm) {
+//        return new ToDoRepositoryImpl(realm);
+//    }
 }

@@ -1,20 +1,15 @@
 package com.gooner10.simpletodo.todo
 
-import android.databinding.DataBindingUtil
-import android.databinding.ViewDataBinding
 import android.os.Build
 import android.os.Bundle
 import android.support.design.widget.FloatingActionButton
 import android.support.v4.app.ActivityOptionsCompat
 import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.helper.ItemTouchHelper
-import android.view.ViewAnimationUtils
 import com.gooner10.simpletodo.Constants
 import com.gooner10.simpletodo.R
 import com.gooner10.simpletodo.ToDoApplication
-import com.gooner10.simpletodo.databinding.ActivityMainBinding
 import com.gooner10.simpletodo.edit.EditActivity
 import com.gooner10.simpletodo.model.ToDoModel
 import com.gooner10.simpletodo.model.ToDoRepository
@@ -24,28 +19,28 @@ class ToDoActivity : AppCompatActivity(), ToDoItemsAdapter.OnItemClickListener, 
     private var toDoItemsAdapter: ToDoItemsAdapter? = null
     private var mActionsListener: ToDoContract.UserActionsListener? = null
     private var fab: FloatingActionButton? = null
-    private var mainBinding: ActivityMainBinding? = null
+//    private var mainBinding: ActivityMainBinding? = null
 
     @Inject
-    internal var toDoRepository: ToDoRepository? = null
+    private var toDoRepository: ToDoRepository? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         ToDoApplication.getToDoApplication().component.inject(this)
-        mainBinding = DataBindingUtil.setContentView<ViewDataBinding>(this, R.layout.activity_main)
+//        mainBinding = DataBindingUtil.setContentView<ViewDataBinding>(this, R.layout.activity_main)
 
         mActionsListener = ToDoPresenter(this, toDoRepository)
 
-        val toolbar = mainBinding!!.toolbar
-        setSupportActionBar(toolbar)
+//        val toolbar = mainBinding!!.toolbar
+//        setSupportActionBar(toolbar)
 
-        val mRecyclerView = mainBinding!!.layoutContentMain.recyclerview
+//        val mRecyclerView = mainBinding!!.layoutContentMain.recyclerview
 
         toDoItemsAdapter = ToDoItemsAdapter(this)
-        mRecyclerView.adapter = toDoItemsAdapter
-        mRecyclerView.layoutManager = LinearLayoutManager(this)
-
-        configureRecyclerViewSwipe(mRecyclerView)
+//        mRecyclerView.adapter = toDoItemsAdapter
+//        mRecyclerView.layoutManager = LinearLayoutManager(this)
+//
+//        configureRecyclerViewSwipe(mRecyclerView)
 
         configureFabButton()
     }
@@ -75,7 +70,7 @@ class ToDoActivity : AppCompatActivity(), ToDoItemsAdapter.OnItemClickListener, 
      * Circular Reveal Animation added for the fab button in onClick
      */
     private fun configureFabButton() {
-        fab = mainBinding!!.fab
+//        fab = mainBinding!!.fab
         if (fab != null) {
             fab!!.setOnClickListener {
                 // Adding Circular Reveal to the fab button
@@ -86,8 +81,8 @@ class ToDoActivity : AppCompatActivity(), ToDoItemsAdapter.OnItemClickListener, 
 
                     // get the final radius for the clipping circle
                     val finalRadius = Math.max(fab!!.width, fab!!.height) / 2
-                    val anim = ViewAnimationUtils.createCircularReveal(fab, cx, cy, 0f, finalRadius.toFloat())
-                    anim.start()
+//                    val anim = ViewAnimationUtils.createCircularReveal(fab, cx, cy, 0f, finalRadius.toFloat())
+//                    anim.start()
                 }
                 val mToDoDialogFragment = ToDoDialogFragment.newInstance(R.string.add_new_todo)
                 mToDoDialogFragment.show(supportFragmentManager, Constants.TODO_DIALOG_FRAGMENT_TAG)
@@ -100,7 +95,7 @@ class ToDoActivity : AppCompatActivity(), ToDoItemsAdapter.OnItemClickListener, 
     }
 
     override fun showToDoUi(mToDoList: List<ToDoModel>) {
-        mainBinding!!.layoutContentMain.userList = mToDoList
+//        mainBinding!!.layoutContentMain.userList = mToDoList
         toDoItemsAdapter!!.setItems(mToDoList)
     }
 
