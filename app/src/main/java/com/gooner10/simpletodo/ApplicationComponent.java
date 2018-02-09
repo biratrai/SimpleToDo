@@ -4,13 +4,10 @@ package com.gooner10.simpletodo;
  * Dagger Component
  */
 
-import android.app.Application;
-
 import com.gooner10.simpletodo.todo.ToDoActivity;
 
 import javax.inject.Singleton;
 
-import dagger.BindsInstance;
 import dagger.Component;
 
 @Singleton
@@ -25,7 +22,7 @@ public interface ApplicationComponent {
 //        ApplicationComponent build();
 //    }
 
-//    void inject(ToDoActivity toDoActivity);
+    void inject(ToDoActivity toDoActivity);
 
 //    void inject(EditActivity editActivity);
 }

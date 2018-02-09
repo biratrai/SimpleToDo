@@ -41,6 +41,7 @@ public class ToDoApplication extends Application {
 
     private void setUpComponents() {
         component = DaggerApplicationComponent.builder()
+                .applicationModule(new ApplicationModule(this))
                 .build();
 //                DaggerApplicationComponent.builder()
 //                .applicationModule(new ApplicationModule(this))

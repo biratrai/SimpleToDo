@@ -42,7 +42,7 @@ public class ToDoActivity extends AppCompatActivity implements ToDoItemsAdapter.
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        ToDoApplication.getToDoApplication().getComponent().inject(this);
+        ToDoApplication.getToDoApplication().getComponent().inject(this);
         mainBinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
 
         mActionsListener = new ToDoPresenter(this, toDoRepository);
