@@ -3,6 +3,9 @@ package com.gooner10.simpletodo.model;
 import java.util.List;
 import java.util.UUID;
 
+import javax.inject.Inject;
+
+import dagger.Provides;
 import io.realm.Realm;
 
 /**
@@ -11,6 +14,7 @@ import io.realm.Realm;
 public class ToDoRepositoryImpl implements ToDoRepository {
     private final Realm realm;
 
+    @Inject
     public ToDoRepositoryImpl(Realm realm) {
         this.realm = realm;
     }
@@ -27,8 +31,8 @@ public class ToDoRepositoryImpl implements ToDoRepository {
         realm.executeTransaction(new Realm.Transaction() {
             @Override
             public void execute(Realm realm) {
-                ToDoModel toDoModel = realm.createObject(ToDoModel.class);
-                toDoModel.setId(UUID.randomUUID().toString());
+                ToDoModel toDoModel = realm.createObject(ToDoModel.class,  UUID.randomUUID().toString());
+//                toDoModel.setId(UUID.randomUUID().toString());
                 toDoModel.setToDoName(mNewToDo);
             }
         });
