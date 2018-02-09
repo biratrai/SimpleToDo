@@ -44,10 +44,11 @@ public class ToDoDialogFragment extends DialogFragment {
     }
 
     @Override
+    @DebugLog
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         dialogBoxBinding = DataBindingUtil.inflate(inflater, R.layout.input_dialog_box, container, false);
-        return null;
+        return dialogBoxBinding.getRoot();
     }
 
     @Override
@@ -60,7 +61,7 @@ public class ToDoDialogFragment extends DialogFragment {
         getDialog().setTitle(title);
         setCancelable(false);
         mEditText.requestFocus();
-        getDialog().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
+//        getDialog().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
 
         Button cancelBtn = dialogBoxBinding.cancelInputBtn;
         cancelBtn.setOnClickListener(new View.OnClickListener() {
