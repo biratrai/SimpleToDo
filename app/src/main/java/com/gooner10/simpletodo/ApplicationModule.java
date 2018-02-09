@@ -23,21 +23,21 @@ public class ApplicationModule {
         mApplication = application;
     }
 
+//    @Provides
+//    @Singleton
+//    public Application provideApplicationContext() {
+//        return mApplication;
+//    }
+
     @Provides
     @Singleton
-    public Application provideApplicationContext() {
-        return mApplication;
+    Realm provideRealm() {
+        return Realm.getDefaultInstance();
     }
 
-//    @Provides
-//    @Singleton
-//    Realm provideRealm() {
-//        return Realm.getDefaultInstance();
-//    }
-//
-//    @Provides
-//    @Singleton
-//    public ToDoRepository provideRepository(Realm realm) {
-//        return new ToDoRepositoryImpl(realm);
-//    }
+    @Provides
+    @Singleton
+    public ToDoRepository provideRepository(Realm realm) {
+        return new ToDoRepositoryImpl(realm);
+    }
 }

@@ -21,12 +21,12 @@ class ToDoActivity : AppCompatActivity(), ToDoItemsAdapter.OnItemClickListener, 
     private var fab: FloatingActionButton? = null
 //    private var mainBinding: ActivityMainBinding? = null
 
-    @Inject
-    private var toDoRepository: ToDoRepository? = null
+//    @Inject
+    var toDoRepository: ToDoRepository? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        ToDoApplication.getToDoApplication().component.inject(this)
+//        ToDoApplication.getToDoApplication().component.inject(this)
 //        mainBinding = DataBindingUtil.setContentView<ViewDataBinding>(this, R.layout.activity_main)
 
         mActionsListener = ToDoPresenter(this, toDoRepository)
