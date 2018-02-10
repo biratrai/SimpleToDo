@@ -1,6 +1,7 @@
-package com.gooner10.simpletodo.todo;
+package com.gooner10.simpletodo;
 
 import com.gooner10.simpletodo.ApplicationModule;
+import com.gooner10.simpletodo.todo.ToDoActivity;
 
 import javax.inject.Singleton;
 

@@ -7,7 +7,6 @@ package com.gooner10.simpletodo;
 import android.app.Application;
 
 import com.gooner10.simpletodo.todo.ToDoActivity;
-import com.gooner10.simpletodo.todo.ToDoActivityBindingModule;
 
 import javax.inject.Singleton;
 
