@@ -11,7 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.EditText;
 
 import com.gooner10.simpletodo.R;
 import com.gooner10.simpletodo.databinding.InputDialogBoxBinding;
@@ -24,11 +23,14 @@ import hugo.weaving.DebugLog;
  */
 
 public class ToDoDialogFragment extends DialogFragment {
-    private TextInputEditText mEditText;
+    private TextInputEditText inputEditText;
     private static final String TITLE = "title";
     private InputDialogBoxBinding dialogBoxBinding;
 
     public ToDoDialogFragment() {
+        // Empty constructor is required for DialogFragment
+        // Make sure not to add arguments to the constructor
+        // Use `newInstance` instead as shown below
     }
 
     /**
@@ -47,7 +49,7 @@ public class ToDoDialogFragment extends DialogFragment {
     @DebugLog
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        dialogBoxBinding = DataBindingUtil.inflate(inflater, R.layout.input_dialog_box, container, false);
+        dialogBoxBinding = DataBindingUtil.inflate(getActivity().getLayoutInflater(), R.layout.input_dialog_box, container, false);
         return dialogBoxBinding.getRoot();
     }
 
@@ -56,12 +58,12 @@ public class ToDoDialogFragment extends DialogFragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         int title = getArguments().getInt(TITLE);
-        mEditText = dialogBoxBinding.addToDoText;
+        inputEditText = dialogBoxBinding.addToDoText;
         final TextInputLayout mInputText = dialogBoxBinding.textInputLayout;
         getDialog().setTitle(title);
         setCancelable(false);
-        mEditText.requestFocus();
-//        getDialog().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
+        inputEditText.requestFocus();
+        getDialog().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
 
         Button cancelBtn = dialogBoxBinding.cancelInputBtn;
         cancelBtn.setOnClickListener(new View.OnClickListener() {
@@ -75,8 +77,8 @@ public class ToDoDialogFragment extends DialogFragment {
         addBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (mEditText != null) {
-                    String m_Text = mEditText.getText().toString().trim();
+                if (inputEditText != null) {
+                    String m_Text = inputEditText.getText().toString().trim();
                     if (m_Text.length() == 0) {
                         mInputText.setError(getString(R.string.empty_input_error));
 
