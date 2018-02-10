@@ -22,6 +22,7 @@ import com.gooner10.simpletodo.databinding.ActivityMainBinding;
 import com.gooner10.simpletodo.edit.EditActivity;
 import com.gooner10.simpletodo.model.ToDoModel;
 import com.gooner10.simpletodo.model.ToDoRepository;
+import com.gooner10.simpletodo.todo.ToDoContract.ToDoPresenter;
 
 import java.util.List;
 
@@ -30,12 +31,14 @@ import javax.inject.Inject;
 import dagger.android.AndroidInjection;
 
 public class ToDoActivity extends AppCompatActivity implements ToDoItemsAdapter.OnItemClickListener,
-        ToDoContract.View {
-    public static final String LOG_TAG = ToDoActivity.class.getSimpleName();
+        ToDoContract.ToDoView {
+    public static final String TAG = ToDoActivity.class.getSimpleName();
     private ToDoItemsAdapter toDoItemsAdapter;
-    private ToDoContract.Presenter presenter;
     private FloatingActionButton fab;
     private ActivityMainBinding mainBinding;
+
+    @Inject
+    ToDoPresenter toDoPresenter;
 
     @Inject
     ToDoRepository toDoRepository;
@@ -45,8 +48,6 @@ public class ToDoActivity extends AppCompatActivity implements ToDoItemsAdapter.
         super.onCreate(savedInstanceState);
         AndroidInjection.inject(this);
         mainBinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
-
-        presenter = new ToDoPresenter(this, toDoRepository);
 
         Toolbar toolbar = mainBinding.toolbar;
         setSupportActionBar(toolbar);
@@ -65,7 +66,7 @@ public class ToDoActivity extends AppCompatActivity implements ToDoItemsAdapter.
     @Override
     protected void onResume() {
         super.onResume();
-        presenter.loadToDo();
+        toDoPresenter.loadToDo();
     }
 
     private void configureRecyclerViewSwipe(RecyclerView mRecyclerView) {
@@ -78,8 +79,8 @@ public class ToDoActivity extends AppCompatActivity implements ToDoItemsAdapter.
 
             @Override
             public void onSwiped(RecyclerView.ViewHolder viewHolder, int swipeDir) {
-                presenter.deleteToDo(toDoItemsAdapter.getItem(viewHolder.getAdapterPosition()));
-                presenter.loadToDo();
+                toDoPresenter.deleteToDo(toDoItemsAdapter.getItem(viewHolder.getAdapterPosition()));
+                toDoPresenter.loadToDo();
             }
         };
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleItemTouchCallback);
@@ -114,7 +115,7 @@ public class ToDoActivity extends AppCompatActivity implements ToDoItemsAdapter.
     }
 
     public void addNewToDo(String newToDo) {
-        presenter.addNewToDo(newToDo);
+        toDoPresenter.addNewToDo(newToDo);
     }
 
     @Override
@@ -125,7 +126,7 @@ public class ToDoActivity extends AppCompatActivity implements ToDoItemsAdapter.
 
     @Override
     public void updateChanges() {
-        presenter.loadToDo();
+        toDoPresenter.loadToDo();
     }
 
     @Override

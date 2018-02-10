@@ -5,10 +5,10 @@ import com.gooner10.simpletodo.model.ToDoModel;
 import java.util.List;
 
 /**
- * * This specifies the contract between the view and the presenter.
+ * * This specifies the contract between the view and the toDoPresenter.
  */
 public interface ToDoContract {
-    interface View {
+    interface ToDoView {
         void showToDoUi(List<ToDoModel> toDoItems);
 
 //        void showAddToDo();
@@ -18,7 +18,7 @@ public interface ToDoContract {
 //        void showEditToDo();
     }
 
-    interface Presenter {
+    interface ToDoPresenter {
         /**
          * Loads @{>}
          */

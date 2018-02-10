@@ -13,14 +13,14 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
 /**
- * UnitTest To Check Presenter's loadToDo()
+ * UnitTest To Check ToDoPresenterImpl's loadToDo()
  */
-public class ToDoPresenterTest {
+public class ToDoToDoPresenterImplTest {
 
-    private ToDoPresenter toDoPresenter;
+    private ToDoPresenterImpl toDoPresenterImpl;
 
     @Mock
-    ToDoContract.View view;
+    ToDoContract.ToDoView toDoView;
 
     @Mock
     ToDoRepository repository;
@@ -28,14 +28,14 @@ public class ToDoPresenterTest {
     @Before
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
-        toDoPresenter = new ToDoPresenter(view, repository);
+        toDoPresenterImpl = new ToDoPresenterImpl(toDoView, repository);
 //        doReturn(null).when(repository).getToDoList();
     }
 
     @Test
     public void verifyPresenterFetchesDataFromDatabaseAndFeedsDataToView() throws Exception {
-        toDoPresenter.loadToDo();
+        toDoPresenterImpl.loadToDo();
         verify(repository, times(1)).getToDoList();
-        verify(view, times(1)).showToDoUi(anyListOf(ToDoModel.class));
+        verify(toDoView, times(1)).showToDoUi(anyListOf(ToDoModel.class));
     }
 }

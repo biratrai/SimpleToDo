@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-        <import type="android.view.View"/>
+        <import type="android.toDoView.View"/>
         <import type="com.gooner10.simpletodo.model.ToDoModel"/>
         <import type="java.util.List"/>
         <variable name="user" type="ToDoModel"/>

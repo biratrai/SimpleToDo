@@ -67,7 +67,7 @@ public class ToDoItemsAdapter extends RecyclerView.Adapter<ToDoItemsAdapter.Item
 
         final TextView textItemName;
 
-//        public ItemHolder(View itemView) {
+//        public ItemHolder(ToDoView itemView) {
 //            super(itemView);
 //        }
 

@@ -12,13 +12,13 @@ public class ToDoActivityModule {
 
     @Provides
     @ActivityScoped
-    ToDoContract.View provideToDoView(ToDoActivity view) {
+    ToDoContract.ToDoView provideToDoView(ToDoActivity view) {
         return view;
     }
 
     @Provides
     @ActivityScoped
-    ToDoContract.Presenter provideToDoPresenter(ToDoContract.View view, ToDoRepository toDoRepository) {
-        return new ToDoPresenter(view, toDoRepository);
+    ToDoContract.ToDoPresenter provideToDoPresenter(ToDoContract.ToDoView toDoView, ToDoRepository toDoRepository) {
+        return new ToDoPresenterImpl(toDoView, toDoRepository);
     }
 }
