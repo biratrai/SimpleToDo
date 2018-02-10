@@ -18,7 +18,7 @@ public interface ToDoContract {
 //        void showEditToDo();
     }
 
-    interface UserActionsListener {
+    interface Presenter {
         /**
          * Loads @{>}
          */
