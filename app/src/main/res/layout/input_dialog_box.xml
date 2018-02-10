@@ -2,10 +2,12 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent"
+        android:layout_margin="8dp">
 
         <android.support.design.widget.TextInputLayout
             android:id="@+id/text_input_layout"
+            android:layout_margin="8dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -13,18 +15,17 @@
                 android:id="@+id/addToDoText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                android:layout_marginLeft="4dp"
-                android:layout_marginRight="4dp"
-                android:layout_marginTop="4dp"
+                android:layout_margin="8dp"
                 android:hint="@string/to_do_work_hint" />
         </android.support.design.widget.TextInputLayout>
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_below="@+id/text_input_layout">
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/text_input_layout"
+            android:layout_alignParentEnd="true">
 
             <Button
                 android:id="@+id/cancel_input_btn"
