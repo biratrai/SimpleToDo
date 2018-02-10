@@ -3,6 +3,9 @@ package com.gooner10.simpletodo;
 import android.app.Activity;
 import android.app.Application;
 
+import com.gooner10.simpletodo.di.ApplicationComponent;
+import com.gooner10.simpletodo.di.DaggerApplicationComponent;
+
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
