@@ -1,5 +1,6 @@
 package com.gooner10.simpletodo.di;
 
+import com.gooner10.simpletodo.edit.EditActivity;
 import com.gooner10.simpletodo.todo.ToDoActivity;
 import com.gooner10.simpletodo.todo.ToDoActivityModule;
 
@@ -19,4 +20,7 @@ public abstract class ActivityBindingModule {
     @ContributesAndroidInjector(modules = ToDoActivityModule.class)
     abstract ToDoActivity bindToDoActivity();
 
+    @ActivityScoped
+    @ContributesAndroidInjector
+    abstract EditActivity bindEditActivity();
 }

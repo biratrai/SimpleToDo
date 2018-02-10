@@ -20,6 +20,8 @@ import com.gooner10.simpletodo.model.ToDoRepository;
 
 import javax.inject.Inject;
 
+import dagger.android.AndroidInjection;
+
 public class EditActivity extends AppCompatActivity {
     private EditText editText;
     private ToDoModel toDoModel;
@@ -36,7 +38,7 @@ public class EditActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        ToDoApplication.getToDoApplication().getComponent().inject(this);
+        AndroidInjection.inject(this);
 
         ActivityEditBinding editBinding = DataBindingUtil.setContentView(this, R.layout.activity_edit);
 
