@@ -1,6 +1,5 @@
 package com.gooner10.simpletodo.todo;
 
-import com.gooner10.simpletodo.ActivityScoped;
 import com.gooner10.simpletodo.model.ToDoModel;
 import com.gooner10.simpletodo.model.ToDoRepository;
 
@@ -10,7 +9,6 @@ import javax.inject.Inject;
  * Listens to user actions from the UI ({@link ToDoActivity}), retrieves the data and updates the
  * UI as required.
  */
-@ActivityScoped
 public class ToDoPresenter implements ToDoContract.Presenter {
 
     private final ToDoRepository mToDoRepository;
