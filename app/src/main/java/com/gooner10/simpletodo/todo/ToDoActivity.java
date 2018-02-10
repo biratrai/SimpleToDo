@@ -8,7 +8,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityOptionsCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -28,9 +27,9 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import dagger.android.AndroidInjection;
+import dagger.android.support.DaggerAppCompatActivity;
 
-public class ToDoActivity extends AppCompatActivity implements ToDoItemsAdapter.OnItemClickListener,
+public class ToDoActivity extends DaggerAppCompatActivity implements ToDoItemsAdapter.OnItemClickListener,
         ToDoContract.ToDoView {
     public static final String TAG = ToDoActivity.class.getSimpleName();
     private ToDoItemsAdapter toDoItemsAdapter;
@@ -46,7 +45,6 @@ public class ToDoActivity extends AppCompatActivity implements ToDoItemsAdapter.
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        AndroidInjection.inject(this);
         mainBinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
 
         Toolbar toolbar = mainBinding.toolbar;

@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -13,7 +12,6 @@ import android.widget.EditText;
 
 import com.gooner10.simpletodo.Constants;
 import com.gooner10.simpletodo.R;
-import com.gooner10.simpletodo.ToDoApplication;
 import com.gooner10.simpletodo.databinding.ActivityEditBinding;
 import com.gooner10.simpletodo.model.ToDoModel;
 import com.gooner10.simpletodo.model.ToDoRepository;
@@ -21,8 +19,9 @@ import com.gooner10.simpletodo.model.ToDoRepository;
 import javax.inject.Inject;
 
 import dagger.android.AndroidInjection;
+import dagger.android.support.DaggerAppCompatActivity;
 
-public class EditActivity extends AppCompatActivity {
+public class EditActivity extends DaggerAppCompatActivity {
     private EditText editText;
     private ToDoModel toDoModel;
 
@@ -38,7 +37,6 @@ public class EditActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        AndroidInjection.inject(this);
 
         ActivityEditBinding editBinding = DataBindingUtil.setContentView(this, R.layout.activity_edit);
 
