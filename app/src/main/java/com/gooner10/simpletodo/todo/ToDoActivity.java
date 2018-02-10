@@ -33,7 +33,7 @@ public class ToDoActivity extends AppCompatActivity implements ToDoItemsAdapter.
         ToDoContract.View {
     public static final String LOG_TAG = ToDoActivity.class.getSimpleName();
     private ToDoItemsAdapter toDoItemsAdapter;
-    private ToDoContract.UserActionsListener mActionsListener;
+    private ToDoContract.Presenter presenter;
     private FloatingActionButton fab;
     private ActivityMainBinding mainBinding;
 
@@ -46,7 +46,7 @@ public class ToDoActivity extends AppCompatActivity implements ToDoItemsAdapter.
         AndroidInjection.inject(this);
         mainBinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
 
-        mActionsListener = new ToDoPresenter(this, toDoRepository);
+        presenter = new ToDoPresenter(this, toDoRepository);
 
         Toolbar toolbar = mainBinding.toolbar;
         setSupportActionBar(toolbar);
@@ -65,7 +65,7 @@ public class ToDoActivity extends AppCompatActivity implements ToDoItemsAdapter.
     @Override
     protected void onResume() {
         super.onResume();
-        mActionsListener.loadToDo();
+        presenter.loadToDo();
     }
 
     private void configureRecyclerViewSwipe(RecyclerView mRecyclerView) {
@@ -78,8 +78,8 @@ public class ToDoActivity extends AppCompatActivity implements ToDoItemsAdapter.
 
             @Override
             public void onSwiped(RecyclerView.ViewHolder viewHolder, int swipeDir) {
-                mActionsListener.deleteToDo(toDoItemsAdapter.getItem(viewHolder.getAdapterPosition()));
-                mActionsListener.loadToDo();
+                presenter.deleteToDo(toDoItemsAdapter.getItem(viewHolder.getAdapterPosition()));
+                presenter.loadToDo();
             }
         };
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleItemTouchCallback);
@@ -114,7 +114,7 @@ public class ToDoActivity extends AppCompatActivity implements ToDoItemsAdapter.
     }
 
     public void addNewToDo(String newToDo) {
-        mActionsListener.addNewToDo(newToDo);
+        presenter.addNewToDo(newToDo);
     }
 
     @Override
@@ -125,7 +125,7 @@ public class ToDoActivity extends AppCompatActivity implements ToDoItemsAdapter.
 
     @Override
     public void updateChanges() {
-        mActionsListener.loadToDo();
+        presenter.loadToDo();
     }
 
     @Override
