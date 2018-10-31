@@ -4,11 +4,13 @@ import com.gooner10.simpletodo.model.ToDoModel;
 import com.gooner10.simpletodo.model.ToDoRepository;
 
 import javax.inject.Inject;
+import javax.inject.Singleton;
 
 /**
  * Listens to user actions from the UI ({@link ToDoActivity}), retrieves the data and updates the
  * UI as required.
  */
+@Singleton
 public class ToDoPresenterImpl implements ToDoContract.ToDoPresenter {
 
     private final ToDoRepository mToDoRepository;

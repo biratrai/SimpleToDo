@@ -20,7 +20,7 @@ public class ApplicationModule {
     }
 
     @Provides
-    ToDoRepository provideRepository(Realm realm) {
-        return new ToDoRepositoryImpl(realm);
+    ToDoRepository provideRepository(ToDoRepositoryImpl repository) {
+        return repository;
     }
 }
