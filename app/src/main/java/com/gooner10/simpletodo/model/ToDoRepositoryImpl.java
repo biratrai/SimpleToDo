@@ -20,7 +20,7 @@ public class ToDoRepositoryImpl implements ToDoRepository {
     }
 
     @Override
-    public void deleteToDo(ToDoModel toDoModel) {
+    public void deleteToDoFromDatabase(ToDoModel toDoModel) {
         realm.beginTransaction();
         toDoModel.deleteFromRealm();
         realm.commitTransaction();
