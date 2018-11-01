@@ -13,30 +13,30 @@ import javax.inject.Singleton;
 @Singleton
 public class ToDoPresenterImpl implements ToDoContract.ToDoPresenter {
 
-    private final ToDoRepository mToDoRepository;
-    private final ToDoContract.ToDoView mToDoToDoView;
+    private final ToDoRepository toDoRepository;
+    private final ToDoContract.ToDoView toDoView;
 
     @Inject
-    public ToDoPresenterImpl(ToDoContract.ToDoView mToDoToDoView, ToDoRepository toDoRepository) {
-        this.mToDoToDoView = mToDoToDoView;
-        this.mToDoRepository = toDoRepository;
+    public ToDoPresenterImpl(ToDoContract.ToDoView toDoView, ToDoRepository toDoRepository) {
+        this.toDoView = toDoView;
+        this.toDoRepository = toDoRepository;
     }
 
     @Override
     public void loadToDo() {
-        mToDoToDoView.showToDoUi(mToDoRepository.getToDoList());
+        toDoView.showToDoUi(toDoRepository.getToDoList());
     }
 
     @Override
-    public void addNewToDo(final String mNewToDo) {
-        mToDoRepository.saveToDo(mNewToDo);
-        mToDoToDoView.updateChanges();
+    public void addNewToDo(final String newToDo) {
+        toDoRepository.saveToDo(newToDo);
+        toDoView.updateChanges();
     }
 
     @Override
     public void deleteToDo(ToDoModel toDoModel) {
-        mToDoRepository.deleteToDo(toDoModel);
-        mToDoToDoView.updateChanges();
+        toDoRepository.deleteToDo(toDoModel);
+        toDoView.updateChanges();
     }
 }
 
