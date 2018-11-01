@@ -35,7 +35,7 @@ public class ToDoPresenterImpl implements ToDoContract.ToDoPresenter {
 
     @Override
     public void deleteToDo(ToDoModel toDoModel) {
-        toDoRepository.deleteToDo(toDoModel);
+        toDoRepository.deleteToDoFromDatabase(toDoModel);
         toDoView.updateChanges();
     }
 }
