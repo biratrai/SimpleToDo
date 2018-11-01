@@ -7,7 +7,7 @@ import java.util.List;
  */
 public interface ToDoRepository {
 
-    void deleteToDo(ToDoModel toDoModel);
+    void deleteToDoFromDatabase(ToDoModel toDoModel);
 
     void saveToDo(String mNewToDo);
 
