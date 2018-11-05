@@ -18,7 +18,8 @@ public class ToDoActivityModule {
 
     @Provides
     @ActivityScoped
-    ToDoContract.ToDoPresenter provideToDoPresenter(ToDoContract.ToDoView toDoView, ToDoRepository toDoRepository) {
+    ToDoContract.ToDoPresenter provideToDoPresenter(ToDoContract.ToDoView toDoView
+            , ToDoRepository toDoRepository) {
         return new ToDoPresenterImpl(toDoView, toDoRepository);
     }
 }
