@@ -5,9 +5,10 @@ import com.gooner10.simpletodo.model.ToDoRepository;
 
 import dagger.Module;
 import dagger.Provides;
+import dagger.android.AndroidInjectionModule;
 
 
-@Module
+@Module(includes = AndroidInjectionModule.class)
 public class ToDoActivityModule {
 
     @Provides
