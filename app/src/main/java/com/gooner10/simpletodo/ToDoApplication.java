@@ -1,13 +1,9 @@
 package com.gooner10.simpletodo;
 
-import com.gooner10.simpletodo.di.ApplicationComponent;
-import com.gooner10.simpletodo.di.DaggerApplicationComponent;
+import android.app.Application;
 
 import javax.inject.Singleton;
 
-import dagger.android.AndroidInjector;
-import dagger.android.HasActivityInjector;
-import dagger.android.support.DaggerApplication;
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
 
@@ -17,8 +13,7 @@ import static io.realm.RealmConfiguration.Builder;
  * ToDoApplication BaseApplication Class
  */
 @Singleton
-public class ToDoApplication extends DaggerApplication implements HasActivityInjector {
-    private static ApplicationComponent component;
+public class ToDoApplication extends Application {
 
     @Override
     public void onCreate() {
@@ -39,14 +34,4 @@ public class ToDoApplication extends DaggerApplication implements HasActivityInj
         Realm.setDefaultConfiguration(realmConfiguration);
     }
 
-    public static ApplicationComponent getComponent() {
-        return component;
-    }
-
-    @Override
-    protected AndroidInjector<? extends DaggerApplication> applicationInjector() {
-        return DaggerApplicationComponent.builder()
-                .application(this)
-                .build();
-    }
 }
