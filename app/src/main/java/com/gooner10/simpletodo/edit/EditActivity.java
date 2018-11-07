@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -13,20 +14,14 @@ import android.widget.EditText;
 import com.gooner10.simpletodo.Constants;
 import com.gooner10.simpletodo.R;
 import com.gooner10.simpletodo.databinding.ActivityEditBinding;
+import com.gooner10.simpletodo.di.DaggerApplicationComponent;
 import com.gooner10.simpletodo.model.ToDoModel;
 import com.gooner10.simpletodo.model.ToDoRepository;
 
-import javax.inject.Inject;
-
-import dagger.android.AndroidInjection;
-import dagger.android.support.DaggerAppCompatActivity;
-
-public class EditActivity extends DaggerAppCompatActivity {
+public class EditActivity extends AppCompatActivity {
     private EditText editText;
     private ToDoModel toDoModel;
-
-    @Inject
-    ToDoRepository toDoRepository;
+    private ToDoRepository toDoRepository = DaggerApplicationComponent.create().toDoRepostioryProvider();
 
     public static Intent getEditActivity(Activity activity, String id) {
         Intent intent = new Intent(activity, EditActivity.class);

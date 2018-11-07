@@ -8,6 +8,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityOptionsCompat;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -18,6 +19,7 @@ import android.view.ViewAnimationUtils;
 import com.gooner10.simpletodo.Constants;
 import com.gooner10.simpletodo.R;
 import com.gooner10.simpletodo.databinding.ActivityMainBinding;
+import com.gooner10.simpletodo.di.DaggerApplicationComponent;
 import com.gooner10.simpletodo.edit.EditActivity;
 import com.gooner10.simpletodo.model.ToDoModel;
 import com.gooner10.simpletodo.model.ToDoRepository;
@@ -25,22 +27,14 @@ import com.gooner10.simpletodo.todo.ToDoContract.ToDoPresenter;
 
 import java.util.List;
 
-import javax.inject.Inject;
-
-import dagger.android.support.DaggerAppCompatActivity;
-
-public class ToDoActivity extends DaggerAppCompatActivity implements ToDoItemsAdapter.OnItemClickListener,
+public class ToDoActivity extends AppCompatActivity implements ToDoItemsAdapter.OnItemClickListener,
         ToDoContract.ToDoView {
     public static final String TAG = ToDoActivity.class.getSimpleName();
     private ToDoItemsAdapter toDoItemsAdapter;
     private FloatingActionButton fab;
     private ActivityMainBinding mainBinding;
-
-    @Inject
-    ToDoPresenter toDoPresenter;
-
-    @Inject
-    ToDoRepository toDoRepository;
+    private ToDoRepository toDoRepository = DaggerApplicationComponent.create().toDoRepostioryProvider();
+    private ToDoPresenter toDoPresenter = new ToDoPresenterImpl(this, toDoRepository);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,13 +44,13 @@ public class ToDoActivity extends DaggerAppCompatActivity implements ToDoItemsAd
         Toolbar toolbar = mainBinding.toolbar;
         setSupportActionBar(toolbar);
 
-        RecyclerView mRecyclerView = mainBinding.layoutContentMain.recyclerview;
+        RecyclerView recyclerview = mainBinding.layoutContentMain.recyclerview;
 
         toDoItemsAdapter = new ToDoItemsAdapter(this);
-        mRecyclerView.setAdapter(toDoItemsAdapter);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerview.setAdapter(toDoItemsAdapter);
+        recyclerview.setLayoutManager(new LinearLayoutManager(this));
 
-        configureRecyclerViewSwipe(mRecyclerView);
+        configureRecyclerViewSwipe(recyclerview);
 
         configureFabButton();
     }
