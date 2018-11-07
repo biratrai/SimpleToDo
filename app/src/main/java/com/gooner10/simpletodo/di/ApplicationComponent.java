@@ -10,13 +10,10 @@ import com.gooner10.simpletodo.model.ToDoRepositoryModule;
 import javax.inject.Singleton;
 
 import dagger.Component;
-import io.realm.Realm;
 
 @Singleton
 @Component(modules = {ApplicationModule.class,
         ToDoRepositoryModule.class})
 public interface ApplicationComponent {
-    ToDoRepository toDoRepostioryProvider();
-
-    Realm realmProvider();
+    ToDoRepository toDoRepositoryProvider();
 }

@@ -33,7 +33,7 @@ public class ToDoActivity extends AppCompatActivity implements ToDoItemsAdapter.
     private ToDoItemsAdapter toDoItemsAdapter;
     private FloatingActionButton fab;
     private ActivityMainBinding mainBinding;
-    private ToDoRepository toDoRepository = DaggerApplicationComponent.create().toDoRepostioryProvider();
+    private ToDoRepository toDoRepository = DaggerApplicationComponent.create().toDoRepositoryProvider();
     private ToDoPresenter toDoPresenter = new ToDoPresenterImpl(this, toDoRepository);
 
     @Override

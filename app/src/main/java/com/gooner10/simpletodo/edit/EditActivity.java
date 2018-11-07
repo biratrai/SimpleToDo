@@ -21,7 +21,7 @@ import com.gooner10.simpletodo.model.ToDoRepository;
 public class EditActivity extends AppCompatActivity {
     private EditText editText;
     private ToDoModel toDoModel;
-    private ToDoRepository toDoRepository = DaggerApplicationComponent.create().toDoRepostioryProvider();
+    private ToDoRepository toDoRepository = DaggerApplicationComponent.create().toDoRepositoryProvider();
 
     public static Intent getEditActivity(Activity activity, String id) {
         Intent intent = new Intent(activity, EditActivity.class);
