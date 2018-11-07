@@ -8,7 +8,6 @@ import javax.inject.Singleton;
 import dagger.Module;
 import dagger.Provides;
 import dagger.android.AndroidInjectionModule;
-import io.realm.Realm;
 
 /**
  * A module for Android-specific dependencies which require a {@link android.content.Context} or
@@ -16,12 +15,6 @@ import io.realm.Realm;
  */
 @Module(includes = AndroidInjectionModule.class)
 public class ApplicationModule {
-
-    @Provides
-    @Singleton
-    Realm provideRealm() {
-        return Realm.getDefaultInstance();
-    }
 
     @Provides
     @Singleton
